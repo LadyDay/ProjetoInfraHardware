@@ -137,6 +137,28 @@ begin
 				OrigBALU = 2'b00;
 				OpALU = 3'b000;			
 			end
+			
+			JUMP:
+			begin	
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 0;
+				IouD = 0;
+				EscreveMem = 0;
+				OrigAALU = 1;
+				EscreveIR = 0;
+				OrigBALU = 2'b0;
+				OpALU = 3'b000;			
+				
+				
+				/*Variaveis Utilizada*/				
+				EscrevePC = 1;
+				
+				
+				
+			end
+			
 	endcase
 			
 end
