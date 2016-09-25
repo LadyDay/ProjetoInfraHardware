@@ -15,7 +15,7 @@ module Unidade_Controle(
 	output logic[1:0]OpALU,
 	
 	
-	output [5:0]State //( precisamos ter vis�o do estado)
+	output [5:0]State //( precisamos ter visão do estado)
 );
 
 
@@ -49,14 +49,26 @@ always_ff@(posedge clock, posedge reset)begin
 			IR_WRITE:
 			begin
 				ESTADO = MEM_READ;
-				
+				/*case(OPcode)
+					//JUMP
+					6'h2: ESTADO = JUMP;
+					6'hf: ESTADO = LUI;
+					*/
 		
 			end
 			BREAK:
 			begin
 				ESTADO = BREAK;
 			end
-				
+			
+			LUI:
+			begin
+			end
+				ESTADO = MEM_READ;
+			JUMP: 
+			begin
+				ESTADO = MEM_READ;
+			end
 		endcase 
 end
 
@@ -137,6 +149,47 @@ begin
 				OrigBALU = 2'b00;
 				OpALU = 3'b000;			
 			end
+		
+			LUI:
+			begin
+				/*Variaveis NAO Modificadas*/
+				IouD = 0;
+				EscreveMem = 0;
+				OrigAALU = 1;
+				EscreveIR = 0;
+				OrigBALU = 2'b0;
+				OpALU = 3'b000;			
+				EscrevePC = 0;
+				
+				
+				
+				/*Variaveis Utilizada*/				
+				EscreveReg = 1;
+				RegDst = 1;
+				MemparaReg = 0;// AQUI É PARA ESCREVER LUI, MAS NAO TEM NA ENTRADA DO MUX				
+			end
+			
+			JUMP:
+			begin	
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 0;
+				IouD = 0;
+				EscreveMem = 0;
+				OrigAALU = 1;
+				EscreveIR = 0;
+				OrigBALU = 2'b0;
+				OpALU = 3'b000;			
+				
+				
+				/*Variaveis Utilizada*/				
+				EscrevePC = 1;
+				//FALTA MUX ORIGPC
+				
+				
+			end
+			
 	endcase
 			
 end
