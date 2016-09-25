@@ -10,12 +10,12 @@ module FASE2(
 	
 	/*DE ACORDO COM A ESPECIFICACAO*/
 	output [31:0]MemData, 		// SAIDA DA MEMORIA
-	output [31:0]Adress, 		// ENDERECO DA MEMORIA
+	output [31:0]Address, 		// ENDERECO DA MEMORIA
 	output [31:0]WriteDataMem,	// Dado a ser escrito no endereco de memoria
 	output [4:0]WriteRegister,	// Registrador a ser escrito
 	output [31:0]WriteDataReg,	//Dado  a ser escrito no reg
 	output [31:0]MDR,			// SAIDA DO MDR
-	output [31:0]ALU,			//SAIDA DA ALU
+	output [31:0]Alu,			//SAIDA DA ALU
 	output [31:0]AluOut,		//SAIDA da AluOut
 	output [31:0]PC,			//Saida do PC
 	
@@ -56,7 +56,6 @@ wire [31:0]A_saida;
 
 
 //Muxes
-//wire [31:0]Mux1_saida;
 wire [31:0]Mux2_saida;
 wire [31:0]Mux3_saida;
 
@@ -88,7 +87,7 @@ MUX_DOIS_IN Mux1(
 	.prm_entrada(PC),
 	.seg_entrada(AluOut),
 	.controle(IouD),
-	.saida(Adress)
+	.saida(Address)
 
 );
 
@@ -108,8 +107,8 @@ MUX_QUATRO_IN Mux3(
 
 	.prm_entrada(WriteDataMem), //saida do B
 	.seg_entrada(32'd4), // CONSTANTE QUATRO
-	.ter_entrada(),	//SIGNEXTEND
-	.qtr_entrada(),	//SIGNEXSHIFTADO
+	.ter_entrada(ExtensaoOut),	//SIGNEXTEND
+	.qrt_entrada(Desloc1Out),	//SIGNEXSHIFTADO
 	.controle(OrigBALU),
 	.saida(Mux3_saida)
 
@@ -128,13 +127,23 @@ MUX_DOIS_IN Mux4 (
 //---MemToReg---//
 MUX_DOIS_IN Mux5(
 
-	.prm_entrada(MDR),		// AluOut
-	.seg_entrada(AluOut),		// MDR
-	.controle(MemoryReg),
+	.prm_entrada(AluOut),		// AluOut
+	.seg_entrada(MDR),		// MDR
+	.controle(MemparaReg),
 	.saida(WriteDataReg)
 
 );
 
+//---OrigPC-----/
+MUX_QUATRO_IN Mux6(
+
+	.prm_entrada(Alu), //saida do B
+	.seg_entrada(AluOut), // CONSTANTE QUATRO
+	.ter_entrada(),	//SIGNEXTEND
+	.controle(OrigPC),
+	.saida(PC_In)
+
+);
 
 
 
@@ -147,8 +156,8 @@ Registrador PC_reg(
 
 	.Clk(clock),		
 	.Reset(reset),	
-	.Load(EscrevePC),	
-	.Entrada(ALU), 
+	.Load(SinalPC),	
+	.Entrada(PC_In), 
 	.Saida(PC)	
 
 );
@@ -181,7 +190,7 @@ Registrador MDR_reg(
 	.Clk(clock),		
 	.Reset(reset),	
 	.Load(EscreveMDR),	
-	.Entrada(B_in), 
+	.Entrada(MemData), 
 	.Saida(MDR)	
 
 );
@@ -220,7 +229,7 @@ Instr_Reg InsReg(
 Banco_reg BankReg(
 			.Clk(clock),		
 			.Reset(reset),	
-			.RegWrite(RegWrite),
+			.RegWrite(EscreveReg),
 			.ReadReg1(INST_25_21),// INSTR 25-21
 			.ReadReg2(INST_20_16),// INSTR 20-16
 			.WriteReg(WriteRegister),// REGDEST
@@ -233,7 +242,7 @@ Banco_reg BankReg(
 /////////////////MEMORIA///////////////////
 ///////////////////////////////////////////
 Memoria MEM(
-		.Address(Adress),
+		.Address(Address),
 		.Clock	(clock),
 		.Wr		(EscreveMem),
 		.Datain	(WriteDataMem),//SAIDA do regB
@@ -244,22 +253,72 @@ Memoria MEM(
 
 
 ///////////////////////////////////////////
+//////////////CONTROLE ULA/////////////////
+///////////////////////////////////////////
+CONTROLE_ULA ControleUla(
+		.funct(FUNCT),
+		.controle(OpAlu),
+		.saida(ControleUlaOut)
+);
+
+///////////////////////////////////////////
 ///////////////// U L A ///////////////////
 ///////////////////////////////////////////
 ula32 ALU_componente(
 
 		.A(Mux2_saida),		// origA
 		.B(Mux3_saida),		//origB
-		.Seletor(OpALU),
-		.S(ALU),
+		.Seletor(ControleUlaOut),
+		.S(Alu),
 		.Overflow(),
 		.Negativo(),
-		.z(),
+		.z(ZeroAlu),
 		.Igual(),
 		.Maior(),
 		.Menor()
 		
 );
+
+///////////////////////////////////////////
+///////DESLOCAMENTO DE 2 À ESQUERDA////////
+///////////////////////////////////////////
+RegDesloc Desloc1(
+			.Clk(clock),
+		 	.Reset(reset),
+			.Shift(3'b010), //CONSTANTE
+			.N(3'b010),		//CONSTANTE
+			.Entrada(ExtensaoOut),
+			.Saida(Desloc1Out)
+);
+/*
+RegDesloc Desloc2(
+			.Clk(clock),
+		 	.Reset(reset),
+			.Shift(3'b010), //CONSTANTE
+			.N(3'b010),		//CONSTANTE
+			.Entrada(INST_25_0),
+			.Saida(Desloc2Out)
+);
+*/
+
+///////////////////////////////////////////
+////////////EXTENSÃO DE SINAL//////////////
+///////////////////////////////////////////
+EXTENSAO_SINAL ExtensaoSinal(
+		.entrada(INST_15_0),
+		.saida(ExtensaoOut)
+);
+
+///////////////////////////////////////////
+////////////CIRCUITOS EXTRAS///////////////
+///////////////////////////////////////////
+CIRCUITO_PC circuito1(
+		.zero(ZeroAlu),
+		.EscrevePCCond(EscrevePCCond),
+		.EscrevePC(EscrevePC),
+		.saida(SinalPC)
+);
+
 
 
 /**********************************************************/
@@ -281,6 +340,10 @@ Unidade_Controle UC(
 	.EscreveMem(EscreveMem),
 	
 	.EscrevePC(EscrevePC),
+	
+	.EscrevePCCond(EscrevePCCond),
+	
+	.OrigPC(OrigPC),
 	
 	.RegDst(RegDst),
 	

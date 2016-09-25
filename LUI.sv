@@ -8,7 +8,7 @@ module LUI(
 
 	always_comb 
 	begin
-		ImediatoLuizado = {Im, 16'b0};// Coloca o imediato nos bits mais significativos e 0 nos menos
+		//ImediatoLuizado = {Im, 16'b0};// Coloca o imediato nos bits mais significativos e 0 nos menos
 	end
 	
 	
