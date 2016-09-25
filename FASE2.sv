@@ -39,6 +39,7 @@ wire RegDst;
 wire EscreveReg;
 wire IouD;
 wire EscreveIR;
+wire EscreveAluOut;
 wire OrigAALU;
 wire [1:0]OrigBALU;
 wire [2:0]OpALU;
