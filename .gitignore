@@ -11,5 +11,6 @@
 *.asm.*
 *.map.*
 *.qpf
+*~
 /db
-/incremental_db
+/Incremental_db
