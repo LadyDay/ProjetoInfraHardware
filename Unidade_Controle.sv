@@ -109,7 +109,7 @@ begin
 			
 			REF_MEM:
 			begin
-				case(funct)
+				case(OPcode)
 					6'h23: ESTADO = LOAD; //LW
 					6'h2b: ESTADO = STORE; //SW
 				endcase
@@ -118,6 +118,11 @@ begin
 			LOAD:
 			begin
 				ESTADO = END_REF_MEM;
+			end
+			
+			END_REF_MEM:
+			begin
+				ESTADO = MEM_READ;
 			end
 			
 			STORE:
