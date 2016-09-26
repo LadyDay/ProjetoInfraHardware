@@ -5,7 +5,11 @@ module FASE2(
 	output [4:0]  INST_25_21,
 	output [4:0]  INST_20_16,
 	output [15:0] INST_15_0,
-		
+	
+	output [1:0] OrigPC,
+	output [5:0] FUNCT,
+	output [32:0] IR,
+	output [4:0] RD,
 	
 	
 	/*DE ACORDO COM A ESPECIFICACAO*/
@@ -35,6 +39,8 @@ module FASE2(
 /*--------------Sinais de Controle --------------*/
 wire EscreveMem;
 wire EscrevePC;
+wire EscrevePCCondEQ;
+wire EscrevePCCondNE;
 wire RegDst;
 wire EscreveReg;
 wire IouD;
@@ -60,18 +66,29 @@ wire [31:0]A_saida;
 wire [31:0]Mux2_saida;
 wire [31:0]Mux3_saida;
 
+//
+wire [31:0]LuiOut;
+wire [31:0]Desloc1Out;
+wire [31:0]ExtensaoOut;
+wire [31:0] PC_In;
+wire SinalPC;
+wire [2:0]ControleUlaOut;
+wire ZeroAlu;
+wire [31:0]DeslocPCOut;
+
+
 
 /*----------------- ESPECIAIS ---------------*/
 wire[4:0]shamt;
 assign shamt = INST_15_0[10:6];
 
-wire[4:0]RD;
+//wire[4:0]RD;
 assign RD = INST_15_0[15:11];
 
-wire [5:0] FUNCT;
+//wire [5:0] FUNCT;
 assign FUNCT = INST_15_0[5:0];
 
-wire [32:0] IR;
+//wire [32:0] IR;
 assign IR = {OPCODE, INST_25_21, INST_20_16, INST_15_0};
 
 
@@ -140,8 +157,8 @@ MUX_TRES_IN Mux5(
 //---OrigPC-----/
 MUX_TRES_IN Mux6(
 
-	.prm_entrada(Alu), //saida do B
-	.seg_entrada(AluOut), // CONSTANTE QUATRO
+	.prm_entrada(Alu), //saida do ALU
+	.seg_entrada(AluOut), // 
 	.ter_entrada(DeslocPCOut),	//SIGNEXTEND
 	.controle(OrigPC),
 	.saida(PC_In)
@@ -204,7 +221,7 @@ Registrador AluOut_reg(
 	.Clk(clock),		
 	.Reset(reset),	
 	.Load(EscreveAluOut),	 /// COLOCA NA UC esse wire
-	.Entrada(ALU), 
+	.Entrada(Alu), 
 	.Saida(AluOut)	
 
 );

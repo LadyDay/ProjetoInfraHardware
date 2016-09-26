@@ -27,21 +27,21 @@ module Unidade_Controle(
 
 
 typedef enum logic [5:0]{ 
-	MEM_READ,
-	ESPERA,
-	IR_WRITE,
-	CLASSE_R,
-	WRITE_RD,
-	REF_MEM,
-	LOAD,
-	STORE,
-	END_REF_MEM,
-	BREAK,
-	NOP,
-	BEQ,
-	BNE,
-	LUI,
-	JUMP
+	MEM_READ,	//0
+	ESPERA,		//1
+	IR_WRITE,	//2
+	CLASSE_R,	//3
+	WRITE_RD,	//4
+	REF_MEM,	//5
+	LOAD,		//6
+	STORE,		//7
+	END_REF_MEM,//8
+	BREAK,		//9
+	NOP,		//10
+	BEQ,		//11
+	BNE,		//12
+	LUI,		//13
+	JUMP		//14
 }st;
 
 st ESTADO;
@@ -117,7 +117,7 @@ begin
 			
 			STORE:
 			begin
-				ESTADO = END_REF_MEM;
+				ESTADO = MEM_READ;
 			end
 			
 			BEQ:
@@ -169,7 +169,7 @@ begin
 				OrigAALU = 0;
 				OrigBALU = 2'b01;
 				OpALU = 2'b00;
-				OrigPC = 00;
+				OrigPC = 2'b00;
 			end
 			
 			ESPERA:
@@ -189,7 +189,7 @@ begin
 				OrigBALU = 2'b00;
 				OpALU = 2'b00;
 				EscreveAluOut = 0;
-				OrigPC = 00;
+				OrigPC = 2'b00;
 				
 			end
 			
@@ -205,7 +205,7 @@ begin
 				EscrevePC = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
-				OrigPC = 00;
+				OrigPC = 2'b00;
 	
 				/*Variaveis Utilizada*/
 				EscreveIR = 1;

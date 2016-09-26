@@ -8,7 +8,7 @@ module CIRCUITO_PC(
 
 always_comb 
 begin
-	if(EscrevePC || (EscrevePCCondEQ && zero) || (EscrevePCCondNE && ~zero))
+	if(EscrevePC || (EscrevePCCondEQ && zero) || (EscrevePCCondNE && !zero))
 		saida = 1;
 	else
 		saida = 0;
