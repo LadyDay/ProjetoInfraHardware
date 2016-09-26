@@ -336,6 +336,10 @@ CIRCUITO_PC circuito1(
 		.saida(SinalPC)
 );
 
+LUI lui(
+		.Imediato(INST_15_0),
+		.ImediatoLuizado(LuiOut)
+);
 
 
 /**********************************************************/

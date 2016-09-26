@@ -12,7 +12,7 @@ begin
 		2'b00: saida = prm_entrada;
 		2'b01: saida = seg_entrada;
 		2'b10: saida = ter_entrada;
-		2'b11: saida = prm_entrada;
+		default: saida = prm_entrada;
 	endcase
 		
 end
