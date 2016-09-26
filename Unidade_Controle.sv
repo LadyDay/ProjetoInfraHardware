@@ -30,18 +30,19 @@ typedef enum logic [5:0]{
 	MEM_READ,	//0
 	ESPERA,		//1
 	IR_WRITE,	//2
-	CLASSE_R,	//3
-	WRITE_RD,	//4
-	REF_MEM,	//5
-	LOAD,		//6
-	STORE,		//7
-	END_REF_MEM,//8
-	BREAK,		//9
-	NOP,		//10
-	BEQ,		//11
-	BNE,		//12
-	LUI,		//13
-	JUMP		//14
+	DECOD,		//3
+	CLASSE_R,	//4
+	WRITE_RD,	//5
+	REF_MEM,	//6
+	LOAD,		//7
+	STORE,		//8
+	END_REF_MEM,//9
+	BREAK,		//10
+	NOP,		//11
+	BEQ,		//12
+	BNE,		//13
+	LUI,		//14
+	JUMP		//15
 }st;
 
 st ESTADO;
@@ -67,7 +68,11 @@ begin
 			
 			IR_WRITE:
 			begin
-				ESTADO = MEM_READ;
+				ESTADO = DECOD;
+			end
+			
+			DECOD:
+			begin
 				case(OPcode)
 					6'h0:
 					begin
@@ -213,6 +218,27 @@ begin
 				OrigBALU = 2'b11;
 				OpALU = 2'b00;
 				EscreveAluOut = 1;		
+			end
+			
+			DECOD:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveIR = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveMDR = 0;			
+				IouD = 0;
+				EscreveMem = 0;
+				EscrevePC = 0;
+				OrigAALU = 0;
+				OrigBALU = 2'b00;
+				OpALU = 2'b00;
+				EscreveAluOut = 0;
+				OrigPC = 2'b00;
+				
 			end
 			
 			CLASSE_R:
