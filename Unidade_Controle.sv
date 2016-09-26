@@ -42,7 +42,8 @@ typedef enum logic [5:0]{
 	BEQ,		//12
 	BNE,		//13
 	LUI,		//14
-	JUMP		//15
+	JUMP,		//15
+	LOAD_ESPERA //16
 }st;
 
 st ESTADO;
@@ -116,6 +117,11 @@ begin
 			end
 			
 			LOAD:
+			begin
+				ESTADO = LOAD_ESPERA;
+			end
+			
+			LOAD_ESPERA:
 			begin
 				ESTADO = END_REF_MEM;
 			end
@@ -353,6 +359,28 @@ begin
 			end
 			
 			LOAD:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveIR = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveAluOut = 0;
+				EscrevePC = 0;
+				OrigAALU = 0;
+				OrigBALU = 2'b00;
+				OpALU = 2'b00;
+				OrigPC = 00;
+				
+				/*Variaveis Utilizada*/		
+				IouD = 1;
+				EscreveMem = 0;
+				EscreveMDR = 1;
+			end
+			
+			LOAD_ESPERA:
 			begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;

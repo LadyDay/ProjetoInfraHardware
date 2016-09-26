@@ -11,6 +11,10 @@ module FASE2(
 	output [32:0] IR,
 	output [4:0] RD,
 	
+	//Muxes
+	output [31:0] Mux2_saida,
+	output [31:0] Mux3_saida,
+	
 	
 	/*DE ACORDO COM A ESPECIFICACAO*/
 	output [31:0]MemData, 		// SAIDA DA MEMORIA
@@ -60,11 +64,6 @@ wire [1:0]MemparaReg;
 wire [31:0] A_in, B_in;
 wire [31:0]A_saida;
 //wire [31:0]B_saida;
-
-
-//Muxes
-wire [31:0]Mux2_saida;
-wire [31:0]Mux3_saida;
 
 //
 wire [31:0]LuiOut;
@@ -360,7 +359,11 @@ Unidade_Controle UC(
 	
 	.EscreveMem(EscreveMem),
 	
+	.EscreveAluOut(EscreveAluOut),
+	
 	.EscrevePC(EscrevePC),
+	
+	.EscreveMDR(EscreveMDR),
 	
 	.EscrevePCCondEQ(EscrevePCCondEQ),
 	
