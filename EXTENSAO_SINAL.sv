@@ -5,7 +5,7 @@ module EXTENSAO_SINAL (
 
 always_comb 
 begin
-	saida = entrada;	
+	saida = {15'b000000000000000, entrada};	
 end
 
 endmodule: EXTENSAO_SINAL

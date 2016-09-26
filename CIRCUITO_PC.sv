@@ -1,13 +1,14 @@
 module CIRCUITO_PC(
 	input zero,
-	input EscrevePCCond,
+	input EscrevePCCondEQ,
+	input EscrevePCCondNE,
 	input EscrevePC,
 	output saida
 );
 
 always_comb 
 begin
-	if(EscrevePC || (EscrevePCCond && zero))
+	if(EscrevePC || (EscrevePCCondEQ && zero) || (EscrevePCCondNE && ~zero))
 		saida = 1;
 	else
 		saida = 0;

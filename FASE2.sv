@@ -71,7 +71,8 @@ assign RD = INST_15_0[15:11];
 wire [5:0] FUNCT;
 assign FUNCT = INST_15_0[5:0];
 
-
+wire [32:0] IR;
+assign IR = {OPCODE, INST_25_21, INST_20_16, INST_15_0};
 
 
 /*************************************************/
@@ -140,7 +141,7 @@ MUX_QUATRO_IN Mux6(
 
 	.prm_entrada(Alu), //saida do B
 	.seg_entrada(AluOut), // CONSTANTE QUATRO
-	.ter_entrada(),	//SIGNEXTEND
+	.ter_entrada(DeslocPCOut),	//SIGNEXTEND
 	.controle(OrigPC),
 	.saida(PC_In)
 
@@ -284,23 +285,19 @@ ula32 ALU_componente(
 ///////DESLOCAMENTO DE 2 À ESQUERDA////////
 ///////////////////////////////////////////
 RegDesloc Desloc1(
-			.Clk(clock),
-		 	.Reset(reset),
-			.Shift(3'b010), //CONSTANTE
-			.N(3'b010),		//CONSTANTE
-			.Entrada(ExtensaoOut),
-			.Saida(Desloc1Out)
+		.Clk(clock),
+		.Reset(reset),
+		.Shift(3'b010), //CONSTANTE
+		.N(3'b010),		//CONSTANTE
+		.Entrada(ExtensaoOut),
+		.Saida(Desloc1Out)
 );
-/*
-RegDesloc Desloc2(
-			.Clk(clock),
-		 	.Reset(reset),
-			.Shift(3'b010), //CONSTANTE
-			.N(3'b010),		//CONSTANTE
-			.Entrada(INST_25_0),
-			.Saida(Desloc2Out)
+
+MODULO_DESLOC_PC DeslocPC(
+		.IR(IR),
+		.PC(PC),
+		.saida(DeslocPCOut)
 );
-*/
 
 ///////////////////////////////////////////
 ////////////EXTENSÃO DE SINAL//////////////
@@ -315,7 +312,8 @@ EXTENSAO_SINAL ExtensaoSinal(
 ///////////////////////////////////////////
 CIRCUITO_PC circuito1(
 		.zero(ZeroAlu),
-		.EscrevePCCond(EscrevePCCond),
+		.EscrevePCCondEQ(EscrevePCCondEQ),
+		.EscrevePCCondNE(EscrevePCCondNE),
 		.EscrevePC(EscrevePC),
 		.saida(SinalPC)
 );
@@ -342,7 +340,9 @@ Unidade_Controle UC(
 	
 	.EscrevePC(EscrevePC),
 	
-	.EscrevePCCond(EscrevePCCond),
+	.EscrevePCCondEQ(EscrevePCCondEQ),
+	
+	.EscrevePCCondNE(EscrevePCCondNE),
 	
 	.OrigPC(OrigPC),
 	

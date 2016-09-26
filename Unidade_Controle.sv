@@ -5,7 +5,8 @@ module Unidade_Controle(
 	
 	output logic EscreveMem,
 	output logic EscrevePC,
-	output logic EscrevePCCond,
+	output logic EscrevePCCondEQ,
+	output logic EscrevePCCondNE,
 	output logic[1:0]OrigPC,
 	output logic RegDst,
 	output logic EscreveReg,
@@ -37,6 +38,8 @@ typedef enum logic [5:0]{
 	END_REF_MEM,
 	BREAK,
 	NOP,
+	BEQ,
+	BNE,
 	LUI,
 	JUMP
 }st;
@@ -76,8 +79,8 @@ begin
 							ESTADO = CLASSE_R;
 					end
 					6'h2: ESTADO = JUMP;
-					//6'h4: ESTADO = BEQ;
-					//6'h5: ESTADO = BNE;
+					6'h4: ESTADO = BEQ;
+					6'h5: ESTADO = BNE;
 					6'h23: ESTADO = REF_MEM; //LW
 					6'h2b: ESTADO = REF_MEM; //SW
 					6'hf: ESTADO = LUI;
@@ -117,6 +120,16 @@ begin
 				ESTADO = END_REF_MEM;
 			end
 			
+			BEQ:
+			begin
+				ESTADO = MEM_READ;
+			end
+			
+			BNE:
+			begin
+				ESTADO = MEM_READ;
+			end
+			
 			LUI:
 			begin
 				ESTADO = MEM_READ;
@@ -144,7 +157,8 @@ begin
 				EscreveReg = 0;
 				MemparaReg = 0;
 				EscreveIR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;
 				EscreveMDR = 0;			
 			
@@ -165,7 +179,8 @@ begin
 				EscreveReg = 0;
 				MemparaReg = 0;
 				EscreveIR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveMDR = 0;			
 				IouD = 0;
 				EscreveMem = 0;
@@ -188,7 +203,8 @@ begin
 				EscreveMem = 0;
 				EscreveMDR = 0;
 				EscrevePC = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				OrigPC = 00;
 	
 				/*Variaveis Utilizada*/
@@ -209,7 +225,8 @@ begin
 				EscreveMem = 0;
 				EscreveMDR = 0;
 				EscrevePC = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				OrigPC = 00;
 				EscreveIR = 0;
 	
@@ -226,7 +243,8 @@ begin
 				IouD = 0;
 				EscreveMem = 0;
 				EscrevePC = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveMDR = 0;
 				OrigPC = 00;
 				EscreveIR = 0;
@@ -248,7 +266,8 @@ begin
 				EscreveReg = 0;
 				MemparaReg = 0;
 				EscreveIR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveMDR = 0;
 				EscreveAluOut = 0;				
 				IouD = 0;
@@ -267,7 +286,8 @@ begin
 				EscreveReg = 0;
 				MemparaReg = 0;
 				EscreveIR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveMDR = 0;
 				EscreveAluOut = 0;			
 				IouD = 0;
@@ -286,7 +306,8 @@ begin
 				EscreveReg = 0;
 				MemparaReg = 0;
 				EscreveIR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveMDR = 0;			
 				IouD = 0;
 				EscreveMem = 0;
@@ -307,7 +328,8 @@ begin
 				EscreveReg = 0;
 				MemparaReg = 0;
 				EscreveIR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;
 				EscrevePC = 0;
 				OrigAALU = 0;
@@ -328,7 +350,8 @@ begin
 				EscreveReg = 0;
 				MemparaReg = 0;
 				EscreveIR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveMDR = 0;
 				EscreveAluOut = 0;
 				EscrevePC = 0;
@@ -347,7 +370,8 @@ begin
 				/*Variaveis NAO Modificadas*/
 				EscreveIR = 0;
 				EscreveMDR = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;			
 				IouD = 0;
 				EscreveMem = 0;
@@ -363,6 +387,50 @@ begin
 				EscreveReg = 1;
 						
 			end
+			
+			BEQ:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 0;
+				EscreveIR = 0;
+				EscrevePCCondNE = 0;
+				EscreveMDR = 0;			
+				IouD = 0;
+				EscreveMem = 0;
+				EscrevePC = 0;
+				EscreveAluOut = 0;
+				
+				/*Variaveis Utilizada*/
+				OrigAALU = 1;
+				OrigBALU = 2'b00;
+				OpALU = 2'b01;
+				EscrevePCCondEQ = 1;
+				OrigPC = 01;
+			end
+			
+			BNE:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 0;
+				EscreveIR = 0;
+				EscrevePCCondEQ = 0;
+				EscreveMDR = 0;			
+				IouD = 0;
+				EscreveMem = 0;
+				EscrevePC = 0;
+				EscreveAluOut = 0;
+				
+				/*Variaveis Utilizada*/
+				OrigAALU = 1;
+				OrigBALU = 2'b00;
+				OpALU = 2'b01;
+				EscrevePCCondNE = 1;
+				OrigPC = 01;
+			end
 		
 			LUI:
 			begin
@@ -375,7 +443,8 @@ begin
 				EscreveMDR = 0;
 				OpALU = 2'b00;			
 				EscrevePC = 0;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				OrigPC = 00;
 				EscreveAluOut = 0;
 				
@@ -398,13 +467,13 @@ begin
 				EscreveIR = 0;
 				OrigBALU = 2'b0;
 				OpALU = 2'b00;
-				OrigPC = 00;
-				EscrevePCCond = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;		
 				
-				/*Variaveis Utilizada*/				
+				/*Variaveis Utilizada*/
+				OrigPC = 10;			
 				EscrevePC = 1;
-				//FALTA MUX ORIGPC
 			end
 			
 	endcase
