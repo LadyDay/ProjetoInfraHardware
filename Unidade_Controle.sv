@@ -10,7 +10,7 @@ module Unidade_Controle(
 	output logic[1:0]OrigPC,
 	output logic RegDst,
 	output logic EscreveReg,
-	output logic MemparaReg,
+	output logic [1:0]MemparaReg,
 	output logic IouD,
 	output logic EscreveIR,
 	output logic EscreveMDR,
@@ -155,7 +155,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -177,7 +177,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -198,7 +198,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				IouD = 0;
 				EscreveMem = 0;
 				EscreveMDR = 0;
@@ -220,7 +220,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				IouD = 0;
 				EscreveMem = 0;
 				EscreveMDR = 0;
@@ -253,7 +253,7 @@ begin
 				OpALU = 2'b10;
 	
 				/*Variaveis Utilizada*/
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				RegDst = 1;
 				EscreveReg = 1;
 				EscreveAluOut = 0;
@@ -264,7 +264,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -284,7 +284,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -304,7 +304,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -326,7 +326,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -348,7 +348,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -382,7 +382,7 @@ begin
 				OrigPC = 00;
 				
 				/*Variaveis Utilizada*/
-				MemparaReg = 1;
+				MemparaReg = 2'b01;
 				RegDst = 0;
 				EscreveReg = 1;
 						
@@ -393,7 +393,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondNE = 0;
 				EscreveMDR = 0;			
@@ -415,7 +415,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				EscreveIR = 0;
 				EscrevePCCondEQ = 0;
 				EscreveMDR = 0;			
@@ -450,8 +450,8 @@ begin
 				
 				/*Variaveis Utilizada*/				
 				EscreveReg = 1;
-				RegDst = 1;
-				MemparaReg = 0;// AQUI É PARA ESCREVER LUI, MAS NAO TEM NA ENTRADA DO MUX				
+				RegDst = 0;
+				MemparaReg = 2'b10;		
 			end
 			
 			JUMP:
@@ -459,7 +459,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
 				EscreveReg = 0;
-				MemparaReg = 0;
+				MemparaReg = 2'b00;
 				IouD = 0;
 				EscreveMem = 0;
 				EscreveMDR = 0;

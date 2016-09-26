@@ -127,17 +127,18 @@ MUX_DOIS_IN Mux4 (
 );
 
 //---MemToReg---//
-MUX_DOIS_IN Mux5(
+MUX_TRES_IN Mux5(
 
 	.prm_entrada(AluOut),		// AluOut
 	.seg_entrada(MDR),		// MDR
+	.ter_entrada(LuiOut),
 	.controle(MemparaReg),
 	.saida(WriteDataReg)
 
 );
 
 //---OrigPC-----/
-MUX_QUATRO_IN Mux6(
+MUX_TRES_IN Mux6(
 
 	.prm_entrada(Alu), //saida do B
 	.seg_entrada(AluOut), // CONSTANTE QUATRO
