@@ -7,10 +7,10 @@ module MUX_DOIS_IN(
 
 always_comb 
 begin
-	if(controle)
-		saida = seg_entrada;
-	else
-		saida = prm_entrada; 
+	case(controle)
+		1'b0: saida = prm_entrada;
+		1'b1: saida = seg_entrada;
+	endcase
 end
 
 endmodule: MUX_DOIS_IN

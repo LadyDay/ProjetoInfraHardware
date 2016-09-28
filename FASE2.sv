@@ -2,8 +2,8 @@ module FASE2(
 	input clock , reset,
 	
 	
-	output [4:0]  INST_25_21,
-	output [4:0]  INST_20_16,
+	output [4:0] INST_25_21,
+	output [4:0] INST_20_16,
 	output [15:0] INST_15_0,
 	
 	output [1:0] OrigPC,
@@ -11,24 +11,20 @@ module FASE2(
 	output [32:0] IR,
 	output [4:0] RD,
 	
-	//Muxes
-	output [31:0] Mux2_saida,
-	output [31:0] Mux3_saida,
-	
 	
 	/*DE ACORDO COM A ESPECIFICACAO*/
-	output [31:0]MemData, 		// SAIDA DA MEMORIA
-	output [31:0]Address, 		// ENDERECO DA MEMORIA
-	output [31:0]WriteDataMem,	// Dado a ser escrito no endereco de memoria
-	output [4:0]WriteRegister,	// Registrador a ser escrito
-	output [31:0]WriteDataReg,	//Dado  a ser escrito no reg
-	output [31:0]MDR,			// SAIDA DO MDR
-	output [31:0]Alu,			//SAIDA DA ALU
-	output [31:0]AluOut,		//SAIDA da AluOut
-	output [31:0]PC,			//Saida do PC
+	output [31:0] MemData, 		// SAIDA DA MEMORIA
+	output [31:0] Address, 		// ENDERECO DA MEMORIA
+	output [31:0] WriteDataMem,	// Dado a ser escrito no endereco de memoria
+	output [4:0] WriteRegister,	// Registrador a ser escrito
+	output [31:0] WriteDataReg,	//Dado  a ser escrito no reg
+	output [31:0] MDR,			// SAIDA DO MDR
+	output [31:0] Alu,			//SAIDA DA ALU
+	output [31:0] AluOut,		//SAIDA da AluOut
+	output [31:0] PC,			//Saida do PC
 	
-	output [5:0]OPCODE,
-	output [5:0]Estado
+	output [5:0] OPCODE,
+	output [5:0] Estado
 	
 
 );
@@ -42,6 +38,7 @@ module FASE2(
 
 /*--------------Sinais de Controle --------------*/
 wire EscreveMem;
+wire EscreveMDR;
 wire EscrevePC;
 wire EscrevePCCondEQ;
 wire EscrevePCCondNE;
@@ -51,9 +48,9 @@ wire IouD;
 wire EscreveIR;
 wire EscreveAluOut;
 wire OrigAALU;
-wire [1:0]OrigBALU;
-wire [2:0]OpALU;
-wire [1:0]MemparaReg;
+wire [1:0] OrigBALU;
+wire [2:0] OpAlu;
+wire [1:0] MemparaReg;
 
 
 
@@ -62,18 +59,22 @@ wire [1:0]MemparaReg;
 
 //Registradores
 wire [31:0] A_in, B_in;
-wire [31:0]A_saida;
+wire [31:0] A_saida;
 //wire [31:0]B_saida;
 
+//Muxes
+wire [31:0] Mux2_saida;
+wire [31:0] Mux3_saida;
+
 //
-wire [31:0]LuiOut;
-wire [31:0]Desloc1Out;
-wire [31:0]ExtensaoOut;
+wire [31:0] LuiOut;
+wire [31:0] Desloc1Out;
+wire [31:0] ExtensaoOut;
 wire [31:0] PC_In;
 wire SinalPC;
-wire [2:0]ControleUlaOut;
+wire [2:0] ControleUlaOut;
 wire ZeroAlu;
-wire [31:0]DeslocPCOut;
+wire [31:0] DeslocPCOut;
 
 
 
@@ -385,7 +386,7 @@ Unidade_Controle UC(
 	
 	.OrigBALU(OrigBALU),
 	
-	.OpALU(OpALU),
+	.OpAlu(OpAlu),
 	
 	.State(Estado)
 

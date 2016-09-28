@@ -7,7 +7,7 @@ module Unidade_Controle(
 	output logic EscrevePC,
 	output logic EscrevePCCondEQ,
 	output logic EscrevePCCondNE,
-	output logic[1:0]OrigPC,
+	output logic [1:0] OrigPC,
 	output logic RegDst,
 	output logic EscreveReg,
 	output logic [1:0]MemparaReg,
@@ -16,8 +16,8 @@ module Unidade_Controle(
 	output logic EscreveMDR,
 	output logic EscreveAluOut,
 	output logic OrigAALU,
-	output logic[1:0]OrigBALU,
-	output logic[1:0]OpALU,
+	output logic [1:0] OrigBALU,
+	output logic [2:0] OpAlu,
 	
 	
 	output [5:0]State //( precisamos ter visão do estado)
@@ -43,7 +43,8 @@ typedef enum logic [5:0]{
 	BNE,		//13
 	LUI,		//14
 	JUMP,		//15
-	LOAD_ESPERA //16
+	LOAD_ESPERA1, //16
+	LOAD_ESPERA2 //17
 }st;
 
 st ESTADO;
@@ -118,10 +119,15 @@ begin
 			
 			LOAD:
 			begin
-				ESTADO = LOAD_ESPERA;
+				ESTADO = LOAD_ESPERA1;
 			end
 			
-			LOAD_ESPERA:
+			LOAD_ESPERA1:
+			begin
+				ESTADO = LOAD_ESPERA2;
+			end
+			
+			LOAD_ESPERA2:
 			begin
 				ESTADO = END_REF_MEM;
 			end
@@ -184,7 +190,7 @@ begin
 				EscrevePC = 1;
 				OrigAALU = 0;
 				OrigBALU = 2'b01;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				OrigPC = 2'b00;
 			end
 			
@@ -203,7 +209,7 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				EscreveAluOut = 0;
 				OrigPC = 2'b00;
 				
@@ -227,7 +233,7 @@ begin
 				EscreveIR = 1;
 				OrigAALU = 0;
 				OrigBALU = 2'b11;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				EscreveAluOut = 1;		
 			end
 			
@@ -246,7 +252,7 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				EscreveAluOut = 0;
 				OrigPC = 2'b00;
 				
@@ -270,7 +276,7 @@ begin
 				/*Variaveis Utilizada*/
 				OrigAALU = 1;
 				OrigBALU = 2'b00;
-				OpALU = 2'b10;
+				OpAlu = 2'b10;
 				EscreveAluOut = 1;
 			end
 			
@@ -287,7 +293,7 @@ begin
 				EscreveIR = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b10;
+				OpAlu = 2'b10;
 	
 				/*Variaveis Utilizada*/
 				MemparaReg = 2'b00;
@@ -312,7 +318,7 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				OrigPC = 00;		
 			end
 			
@@ -332,7 +338,7 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				OrigPC = 00;		
 			end
 			
@@ -346,7 +352,6 @@ begin
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
 				EscreveMDR = 0;			
-				IouD = 0;
 				EscreveMem = 0;
 				EscrevePC = 0;
 				OrigPC = 00;
@@ -354,8 +359,9 @@ begin
 				/*Variaveis Utilizada*/
 				OrigAALU = 1;
 				OrigBALU = 2'b10;
-				OpALU = 2'b00;
-				EscreveAluOut = 1;	
+				IouD = 1;
+				OpAlu = 2'b00;
+				EscreveAluOut = 1;
 			end
 			
 			LOAD:
@@ -371,16 +377,16 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				OrigPC = 00;
 				
 				/*Variaveis Utilizada*/		
 				IouD = 1;
 				EscreveMem = 0;
-				EscreveMDR = 1;
+				EscreveMDR = 0;
 			end
 			
-			LOAD_ESPERA:
+			LOAD_ESPERA1:
 			begin
 				/*Variaveis NAO Modificadas*/
 				RegDst = 0;
@@ -393,7 +399,29 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
+				OrigPC = 00;
+				
+				/*Variaveis Utilizada*/		
+				IouD = 1;
+				EscreveMem = 0;
+				EscreveMDR = 0;
+			end
+			
+			LOAD_ESPERA2:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveIR = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveAluOut = 0;
+				EscrevePC = 0;
+				OrigAALU = 0;
+				OrigBALU = 2'b00;
+				OpAlu = 2'b00;
 				OrigPC = 00;
 				
 				/*Variaveis Utilizada*/		
@@ -416,7 +444,7 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				OrigPC = 00;
 				
 				/*Variaveis Utilizada*/		
@@ -437,7 +465,7 @@ begin
 				EscrevePC = 0;
 				OrigAALU = 0;
 				OrigBALU = 2'b00;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				OrigPC = 00;
 				
 				/*Variaveis Utilizada*/
@@ -464,7 +492,7 @@ begin
 				/*Variaveis Utilizada*/
 				OrigAALU = 1;
 				OrigBALU = 2'b00;
-				OpALU = 2'b01;
+				OpAlu = 2'b01;
 				EscrevePCCondEQ = 1;
 				OrigPC = 01;
 			end
@@ -486,7 +514,7 @@ begin
 				/*Variaveis Utilizada*/
 				OrigAALU = 1;
 				OrigBALU = 2'b00;
-				OpALU = 2'b01;
+				OpAlu = 2'b01;
 				EscrevePCCondNE = 1;
 				OrigPC = 01;
 			end
@@ -500,7 +528,7 @@ begin
 				EscreveIR = 0;
 				OrigBALU = 2'b0;
 				EscreveMDR = 0;
-				OpALU = 2'b00;			
+				OpAlu = 2'b00;			
 				EscrevePC = 0;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
@@ -525,13 +553,13 @@ begin
 				OrigAALU = 1;
 				EscreveIR = 0;
 				OrigBALU = 2'b0;
-				OpALU = 2'b00;
+				OpAlu = 2'b00;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;		
 				
 				/*Variaveis Utilizada*/
-				OrigPC = 10;			
+				OrigPC = 2'b10;			
 				EscrevePC = 1;
 			end
 			

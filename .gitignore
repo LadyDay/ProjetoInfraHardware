@@ -13,5 +13,6 @@
 *.qpf
 *~
 *.bak
+*.dpf
 /db
 /Incremental_db
