@@ -22,8 +22,9 @@ module FASE2(
 	output [31:0] Alu,			//SAIDA DA ALU
 	output [31:0] AluOut,		//SAIDA da AluOut
 	output [31:0] PC,			//Saida do PC
-	
+	output [31:0] EPC,
 	output [5:0] OPCODE,
+	output [31:0] Cause,
 	output [5:0] Estado
 	
 
@@ -44,13 +45,17 @@ wire EscrevePCCondEQ;
 wire EscrevePCCondNE;
 wire RegDst;
 wire EscreveReg;
-wire IouD;
+wire [1:0]IouD;
 wire EscreveIR;
 wire EscreveAluOut;
 wire OrigAALU;
 wire [1:0] OrigBALU;
 wire [2:0] OpAlu;
 wire [1:0] MemparaReg;
+wire IntCause;
+wire EPCWrite;
+wire CauseWrite;
+wire IntCause;
 
 
 
@@ -75,6 +80,8 @@ wire SinalPC;
 wire [2:0] ControleUlaOut;
 wire ZeroAlu;
 wire [31:0] DeslocPCOut;
+wire InCause;
+wire [31:0] OutInterruption;
 
 
 
@@ -101,10 +108,11 @@ assign IR = {OPCODE, INST_25_21, INST_20_16, INST_15_0};
 ////////////////////////////////////////////
 
 //------IouD------/
-MUX_DOIS_IN Mux1( 
+MUX_TRES_IN Mux1( 
 
 	.prm_entrada(PC),
 	.seg_entrada(AluOut),
+	.ter_entrada(OutInterruption),
 	.controle(IouD),
 	.saida(Address)
 
@@ -143,12 +151,23 @@ MUX_DOIS_IN Mux4 (
 
 );
 
+//---RegCause--//
+MUX_DOIS_IN Mux4 (
+
+	.prm_entrada(1'b0),
+	.seg_entrada(1'b1),
+	.controle(IntCause),
+	.saida(InCause)
+	
+);
+
 //---MemToReg---//
-MUX_TRES_IN Mux5(
+MUX_QUATRO_IN Mux5(
 
 	.prm_entrada(AluOut),		// AluOut
 	.seg_entrada(MDR),		// MDR
 	.ter_entrada(LuiOut),
+	.qrt_entrada(OutExtensaoBlock),
 	.controle(MemparaReg),
 	.saida(WriteDataReg)
 
@@ -179,6 +198,28 @@ Registrador PC_reg(
 	.Load(SinalPC),	
 	.Entrada(PC_In), 
 	.Saida(PC)	
+
+);
+
+//   EPC   //
+Registrador EPC_reg(
+
+	.Clk(clock),		
+	.Reset(reset),	
+	.Load(EPCWrite),	
+	.Entrada(Alu), 
+	.Saida(EPC)	
+
+);
+
+//   Cause   //
+Registrador Cause(
+
+	.Clk(clock),		
+	.Reset(reset),	
+	.Load(CauseWrite),	
+	.Entrada(InCause), 
+	.Saida(Cause)	
 
 );
 
@@ -279,6 +320,19 @@ CONTROLE_ULA ControleUla(
 		.funct(FUNCT),
 		.controle(OpAlu),
 		.saida(ControleUlaOut)
+);
+
+///////////////////////////////////////////
+//////////////INTERRUPTION/////////////////
+///////////////////////////////////////////
+INTERRUPTION Interruption(
+		.entrada(InCause),
+		.saida(OutInterruption)
+);
+
+EXTENSAO_BLOCK ExtensaoBlock(
+		.entrada(IR[7:0]),
+		.saida(OutExtensaoBlock)
 );
 
 ///////////////////////////////////////////
@@ -387,6 +441,12 @@ Unidade_Controle UC(
 	.OrigBALU(OrigBALU),
 	
 	.OpAlu(OpAlu),
+	
+	.CauseWrite(CauseWrite),
+	
+	.EPCWrite(EPCWrite),
+	
+	.IntCause(IntCause),
 	
 	.State(Estado)
 

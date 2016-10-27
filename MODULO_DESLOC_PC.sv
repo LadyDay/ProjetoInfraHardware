@@ -1,7 +1,7 @@
 module MODULO_DESLOC_PC(
-	input[32:0] IR,
-	input[32:0] PC,
-	output[32:0] saida
+	input[31:0] IR,
+	input[31:0] PC,
+	output[31:0] saida
 );
 
 always_comb 
