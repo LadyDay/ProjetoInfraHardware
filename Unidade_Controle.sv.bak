@@ -153,7 +153,7 @@ begin
 			
 			WRITE_Shift:
 			begin
-				ESTADO = MEM_READ;
+				ESTADO = BUSCA;
 			end
 			
 			REF_MEM:

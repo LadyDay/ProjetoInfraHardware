@@ -1,0 +1,611 @@
+Classic Timing Analyzer report for Cinpaticos3etapa
+Thu Oct 27 13:59:03 2016
+Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Timing Analyzer Summary
+  3. Timing Analyzer Settings
+  4. Clock Settings Summary
+  5. Parallel Compilation
+  6. Clock Setup: 'clock'
+  7. tco
+  8. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2010 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                                                                                                                                       ;
++------------------------------+-------+---------------+----------------------------------+-------------------------------+------------------------------+------------+----------+--------------+
+; Type                         ; Slack ; Required Time ; Actual Time                      ; From                          ; To                           ; From Clock ; To Clock ; Failed Paths ;
++------------------------------+-------+---------------+----------------------------------+-------------------------------+------------------------------+------------+----------+--------------+
+; Worst-case tco               ; N/A   ; None          ; 15.387 ns                        ; Instr_Reg:InsReg|Instr15_0[2] ; Alu[27]                      ; clock      ; --       ; 0            ;
+; Clock Setup: 'clock'         ; N/A   ; None          ; 93.24 MHz ( period = 10.725 ns ) ; Instr_Reg:InsReg|Instr15_0[2] ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; 0            ;
+; Total number of failed paths ;       ;               ;                                  ;                               ;                              ;            ;          ; 0            ;
++------------------------------+-------+---------------+----------------------------------+-------------------------------+------------------------------+------------+----------+--------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Settings                                                                                                                            ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+; Option                                                                                               ; Setting            ; From ; To ; Entity Name ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+; Device Name                                                                                          ; EP2S15F672C3       ;      ;    ;             ;
+; Timing Models                                                                                        ; Final              ;      ;    ;             ;
+; Default hold multicycle                                                                              ; Same as Multicycle ;      ;    ;             ;
+; Cut paths between unrelated clock domains                                                            ; On                 ;      ;    ;             ;
+; Cut off read during write signal paths                                                               ; On                 ;      ;    ;             ;
+; Cut off feedback from I/O pins                                                                       ; On                 ;      ;    ;             ;
+; Report Combined Fast/Slow Timing                                                                     ; Off                ;      ;    ;             ;
+; Ignore Clock Settings                                                                                ; Off                ;      ;    ;             ;
+; Analyze latches as synchronous elements                                                              ; On                 ;      ;    ;             ;
+; Enable Recovery/Removal analysis                                                                     ; Off                ;      ;    ;             ;
+; Enable Clock Latency                                                                                 ; Off                ;      ;    ;             ;
+; Use TimeQuest Timing Analyzer                                                                        ; Off                ;      ;    ;             ;
+; Number of source nodes to report per destination node                                                ; 10                 ;      ;    ;             ;
+; Number of destination nodes to report                                                                ; 10                 ;      ;    ;             ;
+; Number of paths to report                                                                            ; 200                ;      ;    ;             ;
+; Report Minimum Timing Checks                                                                         ; Off                ;      ;    ;             ;
+; Use Fast Timing Models                                                                               ; Off                ;      ;    ;             ;
+; Report IO Paths Separately                                                                           ; Off                ;      ;    ;             ;
+; Perform Multicorner Analysis                                                                         ; On                 ;      ;    ;             ;
+; Reports the worst-case path for each clock domain and analysis                                       ; Off                ;      ;    ;             ;
+; Reports worst-case timing paths for each clock domain and analysis                                   ; Off                ;      ;    ;             ;
+; Specifies the maximum number of worst-case timing paths to report for each clock domain and analysis ; 100                ;      ;    ;             ;
+; Removes common clock path pessimism (CCPP) during slack computation                                  ; Off                ;      ;    ;             ;
+; Output I/O Timing Endpoint                                                                           ; Near End           ;      ;    ;             ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Settings Summary                                                                                                                                                             ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; Clock Node Name ; Clock Setting Name ; Type     ; Fmax Requirement ; Early Latency ; Late Latency ; Based on ; Multiply Base Fmax by ; Divide Base Fmax by ; Offset ; Phase offset ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; clock           ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2-4 processors         ;   0.0%      ;
++----------------------------+-------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'clock'                                                                                                                                                                                                                                                                ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------------+------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; Slack                                   ; Actual fmax (period)                                ; From                                     ; To                           ; From Clock ; To Clock ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------------+------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; N/A                                     ; 93.24 MHz ( period = 10.725 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.514 ns               ;
+; N/A                                     ; 93.24 MHz ( period = 10.725 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.514 ns               ;
+; N/A                                     ; 93.24 MHz ( period = 10.725 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.514 ns               ;
+; N/A                                     ; 93.55 MHz ( period = 10.689 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.491 ns               ;
+; N/A                                     ; 94.60 MHz ( period = 10.571 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.390 ns               ;
+; N/A                                     ; 94.60 MHz ( period = 10.571 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.390 ns               ;
+; N/A                                     ; 95.02 MHz ( period = 10.524 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[30] ; clock      ; clock    ; None                        ; None                      ; 10.345 ns               ;
+; N/A                                     ; 95.02 MHz ( period = 10.524 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[31] ; clock      ; clock    ; None                        ; None                      ; 10.345 ns               ;
+; N/A                                     ; 95.13 MHz ( period = 10.512 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.301 ns               ;
+; N/A                                     ; 95.13 MHz ( period = 10.512 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.301 ns               ;
+; N/A                                     ; 95.13 MHz ( period = 10.512 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.301 ns               ;
+; N/A                                     ; 95.44 MHz ( period = 10.478 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.267 ns               ;
+; N/A                                     ; 95.44 MHz ( period = 10.478 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.267 ns               ;
+; N/A                                     ; 95.44 MHz ( period = 10.478 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.267 ns               ;
+; N/A                                     ; 95.45 MHz ( period = 10.477 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[8]  ; clock      ; clock    ; None                        ; None                      ; 10.289 ns               ;
+; N/A                                     ; 95.45 MHz ( period = 10.477 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[9]  ; clock      ; clock    ; None                        ; None                      ; 10.289 ns               ;
+; N/A                                     ; 95.46 MHz ( period = 10.476 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[27] ; clock      ; clock    ; None                        ; None                      ; 10.289 ns               ;
+; N/A                                     ; 95.46 MHz ( period = 10.476 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.278 ns               ;
+; N/A                                     ; 95.50 MHz ( period = 10.471 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.277 ns               ;
+; N/A                                     ; 95.50 MHz ( period = 10.471 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.277 ns               ;
+; N/A                                     ; 95.50 MHz ( period = 10.471 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.277 ns               ;
+; N/A                                     ; 95.68 MHz ( period = 10.451 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[20] ; clock      ; clock    ; None                        ; None                      ; 10.253 ns               ;
+; N/A                                     ; 95.68 MHz ( period = 10.451 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[21] ; clock      ; clock    ; None                        ; None                      ; 10.253 ns               ;
+; N/A                                     ; 95.71 MHz ( period = 10.448 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.237 ns               ;
+; N/A                                     ; 95.71 MHz ( period = 10.448 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.237 ns               ;
+; N/A                                     ; 95.71 MHz ( period = 10.448 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.237 ns               ;
+; N/A                                     ; 95.77 MHz ( period = 10.442 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.244 ns               ;
+; N/A                                     ; 95.79 MHz ( period = 10.440 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[23] ; clock      ; clock    ; None                        ; None                      ; 10.246 ns               ;
+; N/A                                     ; 95.79 MHz ( period = 10.440 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[22] ; clock      ; clock    ; None                        ; None                      ; 10.246 ns               ;
+; N/A                                     ; 95.79 MHz ( period = 10.439 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[24] ; clock      ; clock    ; None                        ; None                      ; 10.245 ns               ;
+; N/A                                     ; 95.79 MHz ( period = 10.439 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[25] ; clock      ; clock    ; None                        ; None                      ; 10.245 ns               ;
+; N/A                                     ; 95.81 MHz ( period = 10.437 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[7]  ; clock      ; clock    ; None                        ; None                      ; 10.252 ns               ;
+; N/A                                     ; 95.83 MHz ( period = 10.435 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.254 ns               ;
+; N/A                                     ; 95.88 MHz ( period = 10.430 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[10] ; clock      ; clock    ; None                        ; None                      ; 10.246 ns               ;
+; N/A                                     ; 95.88 MHz ( period = 10.430 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[11] ; clock      ; clock    ; None                        ; None                      ; 10.246 ns               ;
+; N/A                                     ; 95.98 MHz ( period = 10.419 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[3]  ; clock      ; clock    ; None                        ; None                      ; 10.229 ns               ;
+; N/A                                     ; 95.98 MHz ( period = 10.419 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[5]  ; clock      ; clock    ; None                        ; None                      ; 10.229 ns               ;
+; N/A                                     ; 95.98 MHz ( period = 10.419 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[14] ; clock      ; clock    ; None                        ; None                      ; 10.229 ns               ;
+; N/A                                     ; 96.04 MHz ( period = 10.412 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.214 ns               ;
+; N/A                                     ; 96.08 MHz ( period = 10.408 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.193 ns               ;
+; N/A                                     ; 96.08 MHz ( period = 10.408 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.193 ns               ;
+; N/A                                     ; 96.08 MHz ( period = 10.408 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.193 ns               ;
+; N/A                                     ; 96.10 MHz ( period = 10.406 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[0]  ; clock      ; clock    ; None                        ; None                      ; 10.220 ns               ;
+; N/A                                     ; 96.16 MHz ( period = 10.399 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[26] ; clock      ; clock    ; None                        ; None                      ; 10.200 ns               ;
+; N/A                                     ; 96.16 MHz ( period = 10.399 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[12] ; clock      ; clock    ; None                        ; None                      ; 10.200 ns               ;
+; N/A                                     ; 96.16 MHz ( period = 10.399 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[13] ; clock      ; clock    ; None                        ; None                      ; 10.200 ns               ;
+; N/A                                     ; 96.27 MHz ( period = 10.387 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[15] ; clock      ; clock    ; None                        ; None                      ; 10.187 ns               ;
+; N/A                                     ; 96.27 MHz ( period = 10.387 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[17] ; clock      ; clock    ; None                        ; None                      ; 10.187 ns               ;
+; N/A                                     ; 96.41 MHz ( period = 10.372 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.170 ns               ;
+; N/A                                     ; 96.44 MHz ( period = 10.369 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[29] ; clock      ; clock    ; None                        ; None                      ; 10.182 ns               ;
+; N/A                                     ; 96.52 MHz ( period = 10.361 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.150 ns               ;
+; N/A                                     ; 96.52 MHz ( period = 10.361 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.152 ns               ;
+; N/A                                     ; 96.52 MHz ( period = 10.361 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.150 ns               ;
+; N/A                                     ; 96.52 MHz ( period = 10.361 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.152 ns               ;
+; N/A                                     ; 96.52 MHz ( period = 10.361 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.150 ns               ;
+; N/A                                     ; 96.52 MHz ( period = 10.361 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.152 ns               ;
+; N/A                                     ; 96.54 MHz ( period = 10.358 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.177 ns               ;
+; N/A                                     ; 96.54 MHz ( period = 10.358 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.177 ns               ;
+; N/A                                     ; 96.58 MHz ( period = 10.354 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[28] ; clock      ; clock    ; None                        ; None                      ; 10.171 ns               ;
+; N/A                                     ; 96.75 MHz ( period = 10.336 ns )                    ; Instr_Reg:InsReg|Instr15_0[2]            ; Registrador:PC_reg|Saida[6]  ; clock      ; clock    ; None                        ; None                      ; 10.157 ns               ;
+; N/A                                     ; 96.85 MHz ( period = 10.325 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.127 ns               ;
+; N/A                                     ; 96.85 MHz ( period = 10.325 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.129 ns               ;
+; N/A                                     ; 96.86 MHz ( period = 10.324 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.143 ns               ;
+; N/A                                     ; 96.86 MHz ( period = 10.324 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.143 ns               ;
+; N/A                                     ; 96.86 MHz ( period = 10.324 ns )                    ; Instr_Reg:InsReg|Instr15_0[0]            ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.113 ns               ;
+; N/A                                     ; 96.86 MHz ( period = 10.324 ns )                    ; Instr_Reg:InsReg|Instr15_0[0]            ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.113 ns               ;
+; N/A                                     ; 96.86 MHz ( period = 10.324 ns )                    ; Instr_Reg:InsReg|Instr15_0[0]            ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.113 ns               ;
+; N/A                                     ; 96.93 MHz ( period = 10.317 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.153 ns               ;
+; N/A                                     ; 96.93 MHz ( period = 10.317 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.153 ns               ;
+; N/A                                     ; 96.98 MHz ( period = 10.311 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[30] ; clock      ; clock    ; None                        ; None                      ; 10.132 ns               ;
+; N/A                                     ; 96.98 MHz ( period = 10.311 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[31] ; clock      ; clock    ; None                        ; None                      ; 10.132 ns               ;
+; N/A                                     ; 96.99 MHz ( period = 10.310 ns )                    ; Instr_Reg:InsReg|Instr15_0[4]            ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.103 ns               ;
+; N/A                                     ; 96.99 MHz ( period = 10.310 ns )                    ; Instr_Reg:InsReg|Instr15_0[4]            ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.103 ns               ;
+; N/A                                     ; 96.99 MHz ( period = 10.310 ns )                    ; Instr_Reg:InsReg|Instr15_0[4]            ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.103 ns               ;
+; N/A                                     ; 97.14 MHz ( period = 10.294 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.113 ns               ;
+; N/A                                     ; 97.14 MHz ( period = 10.294 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.113 ns               ;
+; N/A                                     ; 97.20 MHz ( period = 10.288 ns )                    ; Instr_Reg:InsReg|Instr15_0[0]            ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.090 ns               ;
+; N/A                                     ; 97.25 MHz ( period = 10.283 ns )                    ; Instr_Reg:InsReg|Instr15_0[3]            ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.076 ns               ;
+; N/A                                     ; 97.25 MHz ( period = 10.283 ns )                    ; Instr_Reg:InsReg|Instr15_0[3]            ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.076 ns               ;
+; N/A                                     ; 97.25 MHz ( period = 10.283 ns )                    ; Instr_Reg:InsReg|Instr15_0[3]            ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.076 ns               ;
+; N/A                                     ; 97.30 MHz ( period = 10.277 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[30] ; clock      ; clock    ; None                        ; None                      ; 10.098 ns               ;
+; N/A                                     ; 97.30 MHz ( period = 10.277 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[31] ; clock      ; clock    ; None                        ; None                      ; 10.098 ns               ;
+; N/A                                     ; 97.33 MHz ( period = 10.274 ns )                    ; Instr_Reg:InsReg|Instr15_0[4]            ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.080 ns               ;
+; N/A                                     ; 97.40 MHz ( period = 10.267 ns )                    ; Unidade_Controle:UC|ESTADO.LUI           ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.056 ns               ;
+; N/A                                     ; 97.40 MHz ( period = 10.267 ns )                    ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.051 ns               ;
+; N/A                                     ; 97.40 MHz ( period = 10.267 ns )                    ; Unidade_Controle:UC|ESTADO.LUI           ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.056 ns               ;
+; N/A                                     ; 97.40 MHz ( period = 10.267 ns )                    ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.051 ns               ;
+; N/A                                     ; 97.40 MHz ( period = 10.267 ns )                    ; Unidade_Controle:UC|ESTADO.LUI           ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.056 ns               ;
+; N/A                                     ; 97.40 MHz ( period = 10.267 ns )                    ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.051 ns               ;
+; N/A                                     ; 97.43 MHz ( period = 10.264 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[8]  ; clock      ; clock    ; None                        ; None                      ; 10.076 ns               ;
+; N/A                                     ; 97.43 MHz ( period = 10.264 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[9]  ; clock      ; clock    ; None                        ; None                      ; 10.076 ns               ;
+; N/A                                     ; 97.44 MHz ( period = 10.263 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[27] ; clock      ; clock    ; None                        ; None                      ; 10.076 ns               ;
+; N/A                                     ; 97.52 MHz ( period = 10.254 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.069 ns               ;
+; N/A                                     ; 97.52 MHz ( period = 10.254 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.069 ns               ;
+; N/A                                     ; 97.52 MHz ( period = 10.254 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[30] ; clock      ; clock    ; None                        ; None                      ; 10.092 ns               ;
+; N/A                                     ; 97.52 MHz ( period = 10.254 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[31] ; clock      ; clock    ; None                        ; None                      ; 10.092 ns               ;
+; N/A                                     ; 97.59 MHz ( period = 10.247 ns )                    ; Registrador:B|Saida[1]                   ; Registrador:PC_reg|Saida[4]  ; clock      ; clock    ; None                        ; None                      ; 10.053 ns               ;
+; N/A                                     ; 97.59 MHz ( period = 10.247 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[30] ; clock      ; clock    ; None                        ; None                      ; 10.068 ns               ;
+; N/A                                     ; 97.59 MHz ( period = 10.247 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[31] ; clock      ; clock    ; None                        ; None                      ; 10.068 ns               ;
+; N/A                                     ; 97.59 MHz ( period = 10.247 ns )                    ; Registrador:B|Saida[1]                   ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 10.053 ns               ;
+; N/A                                     ; 97.59 MHz ( period = 10.247 ns )                    ; Registrador:B|Saida[1]                   ; Registrador:PC_reg|Saida[19] ; clock      ; clock    ; None                        ; None                      ; 10.053 ns               ;
+; N/A                                     ; 97.59 MHz ( period = 10.247 ns )                    ; Instr_Reg:InsReg|Instr15_0[3]            ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.053 ns               ;
+; N/A                                     ; 97.68 MHz ( period = 10.238 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[20] ; clock      ; clock    ; None                        ; None                      ; 10.040 ns               ;
+; N/A                                     ; 97.68 MHz ( period = 10.238 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[21] ; clock      ; clock    ; None                        ; None                      ; 10.040 ns               ;
+; N/A                                     ; 97.74 MHz ( period = 10.231 ns )                    ; Unidade_Controle:UC|ESTADO.LUI           ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.033 ns               ;
+; N/A                                     ; 97.74 MHz ( period = 10.231 ns )                    ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.028 ns               ;
+; N/A                                     ; 97.75 MHz ( period = 10.230 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[8]  ; clock      ; clock    ; None                        ; None                      ; 10.042 ns               ;
+; N/A                                     ; 97.75 MHz ( period = 10.230 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[9]  ; clock      ; clock    ; None                        ; None                      ; 10.042 ns               ;
+; N/A                                     ; 97.76 MHz ( period = 10.229 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[27] ; clock      ; clock    ; None                        ; None                      ; 10.042 ns               ;
+; N/A                                     ; 97.78 MHz ( period = 10.227 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[23] ; clock      ; clock    ; None                        ; None                      ; 10.033 ns               ;
+; N/A                                     ; 97.78 MHz ( period = 10.227 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[22] ; clock      ; clock    ; None                        ; None                      ; 10.033 ns               ;
+; N/A                                     ; 97.79 MHz ( period = 10.226 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[24] ; clock      ; clock    ; None                        ; None                      ; 10.032 ns               ;
+; N/A                                     ; 97.79 MHz ( period = 10.226 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[25] ; clock      ; clock    ; None                        ; None                      ; 10.032 ns               ;
+; N/A                                     ; 97.81 MHz ( period = 10.224 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[7]  ; clock      ; clock    ; None                        ; None                      ; 10.039 ns               ;
+; N/A                                     ; 97.82 MHz ( period = 10.223 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[8]  ; clock      ; clock    ; None                        ; None                      ; 10.052 ns               ;
+; N/A                                     ; 97.82 MHz ( period = 10.223 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[9]  ; clock      ; clock    ; None                        ; None                      ; 10.052 ns               ;
+; N/A                                     ; 97.83 MHz ( period = 10.222 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[27] ; clock      ; clock    ; None                        ; None                      ; 10.052 ns               ;
+; N/A                                     ; 97.88 MHz ( period = 10.217 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[10] ; clock      ; clock    ; None                        ; None                      ; 10.033 ns               ;
+; N/A                                     ; 97.88 MHz ( period = 10.217 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[11] ; clock      ; clock    ; None                        ; None                      ; 10.033 ns               ;
+; N/A                                     ; 97.93 MHz ( period = 10.211 ns )                    ; Registrador:B|Saida[1]                   ; Registrador:PC_reg|Saida[16] ; clock      ; clock    ; None                        ; None                      ; 10.030 ns               ;
+; N/A                                     ; 97.97 MHz ( period = 10.207 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.026 ns               ;
+; N/A                                     ; 97.97 MHz ( period = 10.207 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 10.028 ns               ;
+; N/A                                     ; 97.97 MHz ( period = 10.207 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.026 ns               ;
+; N/A                                     ; 97.97 MHz ( period = 10.207 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 10.028 ns               ;
+; N/A                                     ; 97.98 MHz ( period = 10.206 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[3]  ; clock      ; clock    ; None                        ; None                      ; 10.016 ns               ;
+; N/A                                     ; 97.98 MHz ( period = 10.206 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[5]  ; clock      ; clock    ; None                        ; None                      ; 10.016 ns               ;
+; N/A                                     ; 97.98 MHz ( period = 10.206 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[14] ; clock      ; clock    ; None                        ; None                      ; 10.016 ns               ;
+; N/A                                     ; 98.00 MHz ( period = 10.204 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[20] ; clock      ; clock    ; None                        ; None                      ; 10.006 ns               ;
+; N/A                                     ; 98.00 MHz ( period = 10.204 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[21] ; clock      ; clock    ; None                        ; None                      ; 10.006 ns               ;
+; N/A                                     ; 98.04 MHz ( period = 10.200 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[8]  ; clock      ; clock    ; None                        ; None                      ; 10.012 ns               ;
+; N/A                                     ; 98.04 MHz ( period = 10.200 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[9]  ; clock      ; clock    ; None                        ; None                      ; 10.012 ns               ;
+; N/A                                     ; 98.05 MHz ( period = 10.199 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[27] ; clock      ; clock    ; None                        ; None                      ; 10.012 ns               ;
+; N/A                                     ; 98.07 MHz ( period = 10.197 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[20] ; clock      ; clock    ; None                        ; None                      ; 10.016 ns               ;
+; N/A                                     ; 98.07 MHz ( period = 10.197 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[21] ; clock      ; clock    ; None                        ; None                      ; 10.016 ns               ;
+; N/A                                     ; 98.11 MHz ( period = 10.193 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[0]  ; clock      ; clock    ; None                        ; None                      ; 10.007 ns               ;
+; N/A                                     ; 98.11 MHz ( period = 10.193 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[23] ; clock      ; clock    ; None                        ; None                      ; 9.999 ns                ;
+; N/A                                     ; 98.11 MHz ( period = 10.193 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[22] ; clock      ; clock    ; None                        ; None                      ; 9.999 ns                ;
+; N/A                                     ; 98.12 MHz ( period = 10.192 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[24] ; clock      ; clock    ; None                        ; None                      ; 9.998 ns                ;
+; N/A                                     ; 98.12 MHz ( period = 10.192 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[25] ; clock      ; clock    ; None                        ; None                      ; 9.998 ns                ;
+; N/A                                     ; 98.14 MHz ( period = 10.190 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[7]  ; clock      ; clock    ; None                        ; None                      ; 10.005 ns               ;
+; N/A                                     ; 98.17 MHz ( period = 10.186 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[26] ; clock      ; clock    ; None                        ; None                      ; 9.987 ns                ;
+; N/A                                     ; 98.17 MHz ( period = 10.186 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[23] ; clock      ; clock    ; None                        ; None                      ; 10.009 ns               ;
+; N/A                                     ; 98.17 MHz ( period = 10.186 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[22] ; clock      ; clock    ; None                        ; None                      ; 10.009 ns               ;
+; N/A                                     ; 98.17 MHz ( period = 10.186 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[12] ; clock      ; clock    ; None                        ; None                      ; 9.987 ns                ;
+; N/A                                     ; 98.17 MHz ( period = 10.186 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[13] ; clock      ; clock    ; None                        ; None                      ; 9.987 ns                ;
+; N/A                                     ; 98.18 MHz ( period = 10.185 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[24] ; clock      ; clock    ; None                        ; None                      ; 10.008 ns               ;
+; N/A                                     ; 98.18 MHz ( period = 10.185 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[25] ; clock      ; clock    ; None                        ; None                      ; 10.008 ns               ;
+; N/A                                     ; 98.20 MHz ( period = 10.183 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[7]  ; clock      ; clock    ; None                        ; None                      ; 10.015 ns               ;
+; N/A                                     ; 98.20 MHz ( period = 10.183 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[10] ; clock      ; clock    ; None                        ; None                      ; 9.999 ns                ;
+; N/A                                     ; 98.20 MHz ( period = 10.183 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[11] ; clock      ; clock    ; None                        ; None                      ; 9.999 ns                ;
+; N/A                                     ; 98.27 MHz ( period = 10.176 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[10] ; clock      ; clock    ; None                        ; None                      ; 10.009 ns               ;
+; N/A                                     ; 98.27 MHz ( period = 10.176 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[11] ; clock      ; clock    ; None                        ; None                      ; 10.009 ns               ;
+; N/A                                     ; 98.29 MHz ( period = 10.174 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[20] ; clock      ; clock    ; None                        ; None                      ; 9.976 ns                ;
+; N/A                                     ; 98.29 MHz ( period = 10.174 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[21] ; clock      ; clock    ; None                        ; None                      ; 9.976 ns                ;
+; N/A                                     ; 98.29 MHz ( period = 10.174 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[15] ; clock      ; clock    ; None                        ; None                      ; 9.974 ns                ;
+; N/A                                     ; 98.29 MHz ( period = 10.174 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[17] ; clock      ; clock    ; None                        ; None                      ; 9.974 ns                ;
+; N/A                                     ; 98.31 MHz ( period = 10.172 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[3]  ; clock      ; clock    ; None                        ; None                      ; 9.982 ns                ;
+; N/A                                     ; 98.31 MHz ( period = 10.172 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[5]  ; clock      ; clock    ; None                        ; None                      ; 9.982 ns                ;
+; N/A                                     ; 98.31 MHz ( period = 10.172 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[14] ; clock      ; clock    ; None                        ; None                      ; 9.982 ns                ;
+; N/A                                     ; 98.33 MHz ( period = 10.170 ns )                    ; Instr_Reg:InsReg|Instr15_0[0]            ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 9.989 ns                ;
+; N/A                                     ; 98.33 MHz ( period = 10.170 ns )                    ; Instr_Reg:InsReg|Instr15_0[0]            ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 9.989 ns                ;
+; N/A                                     ; 98.38 MHz ( period = 10.165 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[3]  ; clock      ; clock    ; None                        ; None                      ; 9.992 ns                ;
+; N/A                                     ; 98.38 MHz ( period = 10.165 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[5]  ; clock      ; clock    ; None                        ; None                      ; 9.992 ns                ;
+; N/A                                     ; 98.38 MHz ( period = 10.165 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[14] ; clock      ; clock    ; None                        ; None                      ; 9.992 ns                ;
+; N/A                                     ; 98.40 MHz ( period = 10.163 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[23] ; clock      ; clock    ; None                        ; None                      ; 9.969 ns                ;
+; N/A                                     ; 98.40 MHz ( period = 10.163 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[22] ; clock      ; clock    ; None                        ; None                      ; 9.969 ns                ;
+; N/A                                     ; 98.41 MHz ( period = 10.162 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[24] ; clock      ; clock    ; None                        ; None                      ; 9.968 ns                ;
+; N/A                                     ; 98.41 MHz ( period = 10.162 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[25] ; clock      ; clock    ; None                        ; None                      ; 9.968 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.160 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[7]  ; clock      ; clock    ; None                        ; None                      ; 9.975 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.160 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[30] ; clock      ; clock    ; None                        ; None                      ; 9.981 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.160 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[30] ; clock      ; clock    ; None                        ; None                      ; 9.983 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.160 ns )                    ; Unidade_Controle:UC|ESTADO.BNE           ; Registrador:PC_reg|Saida[31] ; clock      ; clock    ; None                        ; None                      ; 9.981 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.160 ns )                    ; Unidade_Controle:UC|ESTADO.BEQ           ; Registrador:PC_reg|Saida[31] ; clock      ; clock    ; None                        ; None                      ; 9.983 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.160 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[8]  ; clock      ; clock    ; None                        ; None                      ; 9.968 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.160 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[9]  ; clock      ; clock    ; None                        ; None                      ; 9.968 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.159 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[0]  ; clock      ; clock    ; None                        ; None                      ; 9.973 ns                ;
+; N/A                                     ; 98.43 MHz ( period = 10.159 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[27] ; clock      ; clock    ; None                        ; None                      ; 9.968 ns                ;
+; N/A                                     ; 98.46 MHz ( period = 10.156 ns )                    ; Instr_Reg:InsReg|Instr15_0[4]            ; Registrador:PC_reg|Saida[1]  ; clock      ; clock    ; None                        ; None                      ; 9.979 ns                ;
+; N/A                                     ; 98.46 MHz ( period = 10.156 ns )                    ; Instr_Reg:InsReg|Instr15_0[4]            ; Registrador:PC_reg|Saida[2]  ; clock      ; clock    ; None                        ; None                      ; 9.979 ns                ;
+; N/A                                     ; 98.46 MHz ( period = 10.156 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[29] ; clock      ; clock    ; None                        ; None                      ; 9.969 ns                ;
+; N/A                                     ; 98.49 MHz ( period = 10.153 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[10] ; clock      ; clock    ; None                        ; None                      ; 9.969 ns                ;
+; N/A                                     ; 98.49 MHz ( period = 10.153 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[11] ; clock      ; clock    ; None                        ; None                      ; 9.969 ns                ;
+; N/A                                     ; 98.50 MHz ( period = 10.152 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[0]  ; clock      ; clock    ; None                        ; None                      ; 9.983 ns                ;
+; N/A                                     ; 98.50 MHz ( period = 10.152 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[26] ; clock      ; clock    ; None                        ; None                      ; 9.953 ns                ;
+; N/A                                     ; 98.50 MHz ( period = 10.152 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[12] ; clock      ; clock    ; None                        ; None                      ; 9.953 ns                ;
+; N/A                                     ; 98.50 MHz ( period = 10.152 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[13] ; clock      ; clock    ; None                        ; None                      ; 9.953 ns                ;
+; N/A                                     ; 98.57 MHz ( period = 10.145 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[26] ; clock      ; clock    ; None                        ; None                      ; 9.963 ns                ;
+; N/A                                     ; 98.57 MHz ( period = 10.145 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[12] ; clock      ; clock    ; None                        ; None                      ; 9.963 ns                ;
+; N/A                                     ; 98.57 MHz ( period = 10.145 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[13] ; clock      ; clock    ; None                        ; None                      ; 9.963 ns                ;
+; N/A                                     ; 98.60 MHz ( period = 10.142 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[3]  ; clock      ; clock    ; None                        ; None                      ; 9.952 ns                ;
+; N/A                                     ; 98.60 MHz ( period = 10.142 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[5]  ; clock      ; clock    ; None                        ; None                      ; 9.952 ns                ;
+; N/A                                     ; 98.60 MHz ( period = 10.142 ns )                    ; Instr_Reg:InsReg|Instr15_0[5]            ; Registrador:PC_reg|Saida[14] ; clock      ; clock    ; None                        ; None                      ; 9.952 ns                ;
+; N/A                                     ; 98.61 MHz ( period = 10.141 ns )                    ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Registrador:PC_reg|Saida[28] ; clock      ; clock    ; None                        ; None                      ; 9.958 ns                ;
+; N/A                                     ; 98.62 MHz ( period = 10.140 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[15] ; clock      ; clock    ; None                        ; None                      ; 9.940 ns                ;
+; N/A                                     ; 98.62 MHz ( period = 10.140 ns )                    ; Instr_Reg:InsReg|Instr15_0[1]            ; Registrador:PC_reg|Saida[17] ; clock      ; clock    ; None                        ; None                      ; 9.940 ns                ;
+; N/A                                     ; 98.68 MHz ( period = 10.134 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[20] ; clock      ; clock    ; None                        ; None                      ; 9.932 ns                ;
+; N/A                                     ; 98.68 MHz ( period = 10.134 ns )                    ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Registrador:PC_reg|Saida[21] ; clock      ; clock    ; None                        ; None                      ; 9.932 ns                ;
+; N/A                                     ; 98.69 MHz ( period = 10.133 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[15] ; clock      ; clock    ; None                        ; None                      ; 9.950 ns                ;
+; N/A                                     ; 98.69 MHz ( period = 10.133 ns )                    ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Registrador:PC_reg|Saida[17] ; clock      ; clock    ; None                        ; None                      ; 9.950 ns                ;
+; N/A                                     ; 98.72 MHz ( period = 10.130 ns )                    ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Registrador:PC_reg|Saida[18] ; clock      ; clock    ; None                        ; None                      ; 9.919 ns                ;
+; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;                                          ;                              ;            ;          ;                             ;                           ;                         ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------------+------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; tco                                                                                                                                                                          ;
++-----------------------------------------+-----------------------------------------------------+------------+------------------------------------------+---------+------------+
+; Slack                                   ; Required tco                                        ; Actual tco ; From                                     ; To      ; From Clock ;
++-----------------------------------------+-----------------------------------------------------+------------+------------------------------------------+---------+------------+
+; N/A                                     ; None                                                ; 15.387 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 15.174 ns  ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 15.140 ns  ; Instr_Reg:InsReg|Instr15_0[1]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 15.117 ns  ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 15.110 ns  ; Instr_Reg:InsReg|Instr15_0[5]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 15.023 ns  ; Unidade_Controle:UC|ESTADO.BNE           ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 15.023 ns  ; Unidade_Controle:UC|ESTADO.BEQ           ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.986 ns  ; Instr_Reg:InsReg|Instr15_0[0]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.972 ns  ; Instr_Reg:InsReg|Instr15_0[4]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.956 ns  ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.945 ns  ; Instr_Reg:InsReg|Instr15_0[3]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.929 ns  ; Unidade_Controle:UC|ESTADO.LUI           ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.909 ns  ; Registrador:B|Saida[1]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.815 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.792 ns  ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.752 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_R      ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.715 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.668 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.662 ns  ; Registrador:A|Saida[0]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.636 ns  ; Unidade_Controle:UC|ESTADO.JUMP          ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.597 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_Shift  ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.593 ns  ; Unidade_Controle:UC|ESTADO.NOP           ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.553 ns  ; Registrador:PC_reg|Saida[0]              ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.502 ns  ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.468 ns  ; Instr_Reg:InsReg|Instr15_0[1]            ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.458 ns  ; Unidade_Controle:UC|ESTADO.INTERRUPCAO   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.455 ns  ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.453 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.451 ns  ; Unidade_Controle:UC|ESTADO.IR_WRITE      ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.445 ns  ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.443 ns  ; Registrador:PC_reg|Saida[3]              ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.438 ns  ; Instr_Reg:InsReg|Instr15_0[5]            ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.421 ns  ; Instr_Reg:InsReg|Instr15_0[1]            ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.408 ns  ; Registrador:B|Saida[0]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.398 ns  ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.391 ns  ; Instr_Reg:InsReg|Instr15_0[5]            ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.351 ns  ; Unidade_Controle:UC|ESTADO.BNE           ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.351 ns  ; Unidade_Controle:UC|ESTADO.BEQ           ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.314 ns  ; Instr_Reg:InsReg|Instr15_0[0]            ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.304 ns  ; Unidade_Controle:UC|ESTADO.BNE           ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.304 ns  ; Unidade_Controle:UC|ESTADO.BEQ           ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.300 ns  ; Instr_Reg:InsReg|Instr15_0[4]            ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.284 ns  ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.273 ns  ; Instr_Reg:InsReg|Instr15_0[3]            ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.267 ns  ; Instr_Reg:InsReg|Instr15_0[0]            ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.257 ns  ; Unidade_Controle:UC|ESTADO.LUI           ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.253 ns  ; Instr_Reg:InsReg|Instr15_0[4]            ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.240 ns  ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.237 ns  ; Registrador:B|Saida[1]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.237 ns  ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.226 ns  ; Instr_Reg:InsReg|Instr15_0[3]            ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.210 ns  ; Unidade_Controle:UC|ESTADO.LUI           ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.206 ns  ; Instr_Reg:InsReg|Instr15_0[1]            ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.205 ns  ; Registrador:B|Saida[5]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.191 ns  ; Registrador:PC_reg|Saida[2]              ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.190 ns  ; Registrador:B|Saida[1]                   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.183 ns  ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.176 ns  ; Instr_Reg:InsReg|Instr15_0[5]            ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.167 ns  ; Registrador:B|Saida[2]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.150 ns  ; Registrador:PC_reg|Saida[5]              ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.143 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.120 ns  ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.096 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.092 ns  ; Registrador:PC_reg|Saida[6]              ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.089 ns  ; Unidade_Controle:UC|ESTADO.BNE           ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.089 ns  ; Unidade_Controle:UC|ESTADO.BEQ           ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.088 ns  ; Registrador:A|Saida[1]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.080 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_R      ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 14.073 ns  ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.061 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 14.052 ns  ; Instr_Reg:InsReg|Instr15_0[0]            ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.041 ns  ; Registrador:PC_reg|Saida[1]              ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.038 ns  ; Instr_Reg:InsReg|Instr15_0[4]            ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.033 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_R      ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 14.024 ns  ; Registrador:A|Saida[2]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 14.022 ns  ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 14.011 ns  ; Instr_Reg:InsReg|Instr15_0[3]            ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.995 ns  ; Unidade_Controle:UC|ESTADO.LUI           ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.990 ns  ; Registrador:A|Saida[0]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.975 ns  ; Registrador:B|Saida[1]                   ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.964 ns  ; Unidade_Controle:UC|ESTADO.JUMP          ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.943 ns  ; Registrador:A|Saida[0]                   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.936 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.925 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_Shift  ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.921 ns  ; Unidade_Controle:UC|ESTADO.NOP           ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.917 ns  ; Unidade_Controle:UC|ESTADO.JUMP          ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.899 ns  ; Registrador:B|Saida[4]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.890 ns  ; Instr_Reg:InsReg|Instr15_0[7]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.881 ns  ; Registrador:PC_reg|Saida[0]              ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.881 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.880 ns  ; Registrador:B|Saida[6]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.878 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_Shift  ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.874 ns  ; Unidade_Controle:UC|ESTADO.NOP           ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.858 ns  ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.855 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.851 ns  ; Registrador:B|Saida[7]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.848 ns  ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.834 ns  ; Registrador:PC_reg|Saida[0]              ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.818 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_R      ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.814 ns  ; Instr_Reg:InsReg|Instr15_0[1]            ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.791 ns  ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.786 ns  ; Unidade_Controle:UC|ESTADO.INTERRUPCAO   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.784 ns  ; Instr_Reg:InsReg|Instr15_0[5]            ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.779 ns  ; Unidade_Controle:UC|ESTADO.IR_WRITE      ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.777 ns  ; Instr_Reg:InsReg|Instr15_0[8]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.771 ns  ; Registrador:PC_reg|Saida[3]              ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.757 ns  ; Instr_Reg:InsReg|Instr15_0[6]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.739 ns  ; Unidade_Controle:UC|ESTADO.INTERRUPCAO   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.736 ns  ; Registrador:B|Saida[0]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.733 ns  ; Registrador:B|Saida[8]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.732 ns  ; Unidade_Controle:UC|ESTADO.IR_WRITE      ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.728 ns  ; Registrador:A|Saida[0]                   ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.724 ns  ; Registrador:PC_reg|Saida[3]              ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.723 ns  ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.702 ns  ; Unidade_Controle:UC|ESTADO.JUMP          ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.697 ns  ; Unidade_Controle:UC|ESTADO.BNE           ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.697 ns  ; Unidade_Controle:UC|ESTADO.BEQ           ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.696 ns  ; Registrador:PC_reg|Saida[4]              ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.689 ns  ; Instr_Reg:InsReg|Instr15_0[1]            ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.689 ns  ; Registrador:B|Saida[0]                   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.679 ns  ; Registrador:B|Saida[3]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.666 ns  ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.663 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_Shift  ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.660 ns  ; Instr_Reg:InsReg|Instr15_0[0]            ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.659 ns  ; Unidade_Controle:UC|ESTADO.NOP           ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.659 ns  ; Instr_Reg:InsReg|Instr15_0[5]            ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.646 ns  ; Instr_Reg:InsReg|Instr15_0[4]            ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.642 ns  ; Unidade_Controle:UC|ESTADO.REF_MEM       ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.630 ns  ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.619 ns  ; Registrador:PC_reg|Saida[0]              ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.619 ns  ; Instr_Reg:InsReg|Instr15_0[3]            ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.608 ns  ; Instr_Reg:InsReg|Instr15_0[1]            ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.603 ns  ; Unidade_Controle:UC|ESTADO.LUI           ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.585 ns  ; Unidade_Controle:UC|ESTADO.INEXISTENTE   ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.583 ns  ; Registrador:B|Saida[1]                   ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.578 ns  ; Instr_Reg:InsReg|Instr15_0[5]            ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.572 ns  ; Unidade_Controle:UC|ESTADO.BNE           ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.572 ns  ; Unidade_Controle:UC|ESTADO.BEQ           ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.535 ns  ; Instr_Reg:InsReg|Instr15_0[0]            ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.533 ns  ; Registrador:B|Saida[5]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.524 ns  ; Unidade_Controle:UC|ESTADO.INTERRUPCAO   ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.521 ns  ; Instr_Reg:InsReg|Instr15_0[4]            ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.519 ns  ; Registrador:PC_reg|Saida[2]              ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.517 ns  ; Unidade_Controle:UC|ESTADO.IR_WRITE      ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.509 ns  ; Registrador:PC_reg|Saida[3]              ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.505 ns  ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.495 ns  ; Registrador:B|Saida[2]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.494 ns  ; Instr_Reg:InsReg|Instr15_0[3]            ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.491 ns  ; Unidade_Controle:UC|ESTADO.BNE           ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.491 ns  ; Unidade_Controle:UC|ESTADO.BEQ           ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.489 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.486 ns  ; Registrador:A|Saida[7]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.486 ns  ; Registrador:B|Saida[5]                   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.478 ns  ; Registrador:PC_reg|Saida[5]              ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.478 ns  ; Unidade_Controle:UC|ESTADO.LUI           ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.477 ns  ; Registrador:A|Saida[13]                  ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.474 ns  ; Registrador:B|Saida[0]                   ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.472 ns  ; Registrador:PC_reg|Saida[2]              ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.466 ns  ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.458 ns  ; Registrador:B|Saida[1]                   ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.454 ns  ; Instr_Reg:InsReg|Instr15_0[0]            ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.448 ns  ; Registrador:B|Saida[2]                   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.440 ns  ; Instr_Reg:InsReg|Instr15_0[4]            ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.431 ns  ; Registrador:PC_reg|Saida[5]              ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.426 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_R      ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.424 ns  ; Unidade_Controle:UC|ESTADO.WRITE_RD      ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.420 ns  ; Registrador:PC_reg|Saida[6]              ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.416 ns  ; Registrador:A|Saida[1]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.413 ns  ; Instr_Reg:InsReg|Instr15_0[3]            ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.397 ns  ; Unidade_Controle:UC|ESTADO.LUI           ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.378 ns  ; Registrador:A|Saida[5]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.377 ns  ; Registrador:B|Saida[1]                   ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.374 ns  ; Registrador:B|Saida[9]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.373 ns  ; Registrador:PC_reg|Saida[6]              ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.369 ns  ; Registrador:PC_reg|Saida[1]              ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.369 ns  ; Registrador:A|Saida[6]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.369 ns  ; Registrador:A|Saida[1]                   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.364 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.352 ns  ; Registrador:A|Saida[2]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.341 ns  ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.336 ns  ; Registrador:A|Saida[0]                   ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.322 ns  ; Registrador:PC_reg|Saida[1]              ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.318 ns  ; Registrador:A|Saida[3]                   ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.310 ns  ; Unidade_Controle:UC|ESTADO.JUMP          ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.305 ns  ; Registrador:A|Saida[2]                   ; Alu[26] ; clock      ;
+; N/A                                     ; None                                                ; 13.301 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_R      ; Alu[29] ; clock      ;
+; N/A                                     ; None                                                ; 13.283 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_ShiftV ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.278 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[24] ; clock      ;
+; N/A                                     ; None                                                ; 13.271 ns  ; Registrador:B|Saida[5]                   ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.271 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_Shift  ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.267 ns  ; Unidade_Controle:UC|ESTADO.NOP           ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.264 ns  ; Instr_Reg:InsReg|Instr15_0[2]            ; Alu[16] ; clock      ;
+; N/A                                     ; None                                                ; 13.260 ns  ; Unidade_Controle:UC|ESTADO.MEM_READ      ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.257 ns  ; Registrador:PC_reg|Saida[2]              ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.256 ns  ; Instr_Reg:InsReg|Instr15_0[9]            ; Alu[27] ; clock      ;
+; N/A                                     ; None                                                ; 13.233 ns  ; Registrador:B|Saida[2]                   ; Alu[30] ; clock      ;
+; N/A                                     ; None                                                ; 13.227 ns  ; Registrador:B|Saida[4]                   ; Alu[31] ; clock      ;
+; N/A                                     ; None                                                ; 13.227 ns  ; Registrador:PC_reg|Saida[0]              ; Alu[28] ; clock      ;
+; N/A                                     ; None                                                ; 13.220 ns  ; Unidade_Controle:UC|ESTADO.CLASSE_R      ; Alu[22] ; clock      ;
+; N/A                                     ; None                                                ; 13.218 ns  ; Instr_Reg:InsReg|Instr15_0[7]            ; Alu[31] ; clock      ;
+; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;            ;                                          ;         ;            ;
++-----------------------------------------+-----------------------------------------------------+------------+------------------------------------------+---------+------------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Classic Timing Analyzer
+    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+    Info: Processing started: Thu Oct 27 13:59:02 2016
+Info: Command: quartus_tan --read_settings_files=off --write_settings_files=off Cinpaticos3etapa -c Cinpaticos3etapa --timing_analysis_only
+Info: Parallel compilation is enabled and will use 4 of the 4 processors detected
+Warning: Found pins functioning as undefined clocks and/or memory enables
+    Info: Assuming node "clock" is an undefined clock
+Info: Clock "clock" has Internal fmax of 93.24 MHz between source register "Instr_Reg:InsReg|Instr15_0[2]" and destination register "Registrador:PC_reg|Saida[4]" (period= 10.725 ns)
+    Info: + Longest register to register delay is 10.514 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X23_Y11_N21; Fanout = 15; REG Node = 'Instr_Reg:InsReg|Instr15_0[2]'
+        Info: 2: + IC(0.818 ns) + CELL(0.053 ns) = 0.871 ns; Loc. = LCCOMB_X23_Y11_N12; Fanout = 3; COMB Node = 'CONTROLE_ULA:ControleUla|WideOr0~0'
+        Info: 3: + IC(0.513 ns) + CELL(0.272 ns) = 1.656 ns; Loc. = LCCOMB_X22_Y11_N28; Fanout = 37; COMB Node = 'CONTROLE_ULA:ControleUla|saida[2]~0'
+        Info: 4: + IC(0.279 ns) + CELL(0.346 ns) = 2.281 ns; Loc. = LCCOMB_X22_Y11_N22; Fanout = 5; COMB Node = 'Ula32:ALU_componente|Mux62~0'
+        Info: 5: + IC(0.239 ns) + CELL(0.225 ns) = 2.745 ns; Loc. = LCCOMB_X22_Y11_N2; Fanout = 2; COMB Node = 'Ula32:ALU_componente|carry_temp[2]~3'
+        Info: 6: + IC(0.617 ns) + CELL(0.228 ns) = 3.590 ns; Loc. = LCCOMB_X19_Y11_N24; Fanout = 2; COMB Node = 'Ula32:ALU_componente|carry_temp[4]~6'
+        Info: 7: + IC(0.544 ns) + CELL(0.053 ns) = 4.187 ns; Loc. = LCCOMB_X21_Y11_N20; Fanout = 3; COMB Node = 'Ula32:ALU_componente|carry_temp[7]~9'
+        Info: 8: + IC(0.218 ns) + CELL(0.053 ns) = 4.458 ns; Loc. = LCCOMB_X21_Y11_N16; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[9]~10'
+        Info: 9: + IC(0.602 ns) + CELL(0.053 ns) = 5.113 ns; Loc. = LCCOMB_X22_Y9_N0; Fanout = 1; COMB Node = 'Ula32:ALU_componente|carry_temp[11]~11'
+        Info: 10: + IC(0.200 ns) + CELL(0.053 ns) = 5.366 ns; Loc. = LCCOMB_X22_Y9_N4; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[13]~12'
+        Info: 11: + IC(0.218 ns) + CELL(0.053 ns) = 5.637 ns; Loc. = LCCOMB_X22_Y9_N10; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[15]~13'
+        Info: 12: + IC(0.209 ns) + CELL(0.053 ns) = 5.899 ns; Loc. = LCCOMB_X22_Y9_N30; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[17]~14'
+        Info: 13: + IC(0.219 ns) + CELL(0.053 ns) = 6.171 ns; Loc. = LCCOMB_X22_Y9_N16; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[19]~15'
+        Info: 14: + IC(0.211 ns) + CELL(0.053 ns) = 6.435 ns; Loc. = LCCOMB_X22_Y9_N20; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[21]~16'
+        Info: 15: + IC(0.217 ns) + CELL(0.053 ns) = 6.705 ns; Loc. = LCCOMB_X22_Y9_N26; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[23]~17'
+        Info: 16: + IC(0.628 ns) + CELL(0.053 ns) = 7.386 ns; Loc. = LCCOMB_X22_Y12_N14; Fanout = 7; COMB Node = 'Ula32:ALU_componente|carry_temp[25]~18'
+        Info: 17: + IC(0.340 ns) + CELL(0.053 ns) = 7.779 ns; Loc. = LCCOMB_X21_Y12_N0; Fanout = 5; COMB Node = 'Ula32:ALU_componente|Mux4~1'
+        Info: 18: + IC(0.335 ns) + CELL(0.272 ns) = 8.386 ns; Loc. = LCCOMB_X22_Y12_N24; Fanout = 3; COMB Node = 'Ula32:ALU_componente|Equal0~5'
+        Info: 19: + IC(0.238 ns) + CELL(0.272 ns) = 8.896 ns; Loc. = LCCOMB_X22_Y12_N28; Fanout = 17; COMB Node = 'CIRCUITO_PC:circuito1|saida'
+        Info: 20: + IC(0.872 ns) + CELL(0.746 ns) = 10.514 ns; Loc. = LCFF_X19_Y8_N17; Fanout = 9; REG Node = 'Registrador:PC_reg|Saida[4]'
+        Info: Total cell delay = 2.997 ns ( 28.50 % )
+        Info: Total interconnect delay = 7.517 ns ( 71.50 % )
+    Info: - Smallest clock skew is -0.027 ns
+        Info: + Shortest clock path from clock "clock" to destination register is 2.457 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.854 ns) = 0.854 ns; Loc. = PIN_P23; Fanout = 1; CLK Node = 'clock'
+            Info: 2: + IC(0.343 ns) + CELL(0.000 ns) = 1.197 ns; Loc. = CLKCTRL_G3; Fanout = 1406; COMB Node = 'clock~clkctrl'
+            Info: 3: + IC(0.642 ns) + CELL(0.618 ns) = 2.457 ns; Loc. = LCFF_X19_Y8_N17; Fanout = 9; REG Node = 'Registrador:PC_reg|Saida[4]'
+            Info: Total cell delay = 1.472 ns ( 59.91 % )
+            Info: Total interconnect delay = 0.985 ns ( 40.09 % )
+        Info: - Longest clock path from clock "clock" to source register is 2.484 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.854 ns) = 0.854 ns; Loc. = PIN_P23; Fanout = 1; CLK Node = 'clock'
+            Info: 2: + IC(0.343 ns) + CELL(0.000 ns) = 1.197 ns; Loc. = CLKCTRL_G3; Fanout = 1406; COMB Node = 'clock~clkctrl'
+            Info: 3: + IC(0.669 ns) + CELL(0.618 ns) = 2.484 ns; Loc. = LCFF_X23_Y11_N21; Fanout = 15; REG Node = 'Instr_Reg:InsReg|Instr15_0[2]'
+            Info: Total cell delay = 1.472 ns ( 59.26 % )
+            Info: Total interconnect delay = 1.012 ns ( 40.74 % )
+    Info: + Micro clock to output delay of source is 0.094 ns
+    Info: + Micro setup delay of destination is 0.090 ns
+Info: tco from clock "clock" to destination pin "Alu[27]" through register "Instr_Reg:InsReg|Instr15_0[2]" is 15.387 ns
+    Info: + Longest clock path from clock "clock" to source register is 2.484 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.854 ns) = 0.854 ns; Loc. = PIN_P23; Fanout = 1; CLK Node = 'clock'
+        Info: 2: + IC(0.343 ns) + CELL(0.000 ns) = 1.197 ns; Loc. = CLKCTRL_G3; Fanout = 1406; COMB Node = 'clock~clkctrl'
+        Info: 3: + IC(0.669 ns) + CELL(0.618 ns) = 2.484 ns; Loc. = LCFF_X23_Y11_N21; Fanout = 15; REG Node = 'Instr_Reg:InsReg|Instr15_0[2]'
+        Info: Total cell delay = 1.472 ns ( 59.26 % )
+        Info: Total interconnect delay = 1.012 ns ( 40.74 % )
+    Info: + Micro clock to output delay of source is 0.094 ns
+    Info: + Longest register to pin delay is 12.809 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X23_Y11_N21; Fanout = 15; REG Node = 'Instr_Reg:InsReg|Instr15_0[2]'
+        Info: 2: + IC(0.818 ns) + CELL(0.053 ns) = 0.871 ns; Loc. = LCCOMB_X23_Y11_N12; Fanout = 3; COMB Node = 'CONTROLE_ULA:ControleUla|WideOr0~0'
+        Info: 3: + IC(0.513 ns) + CELL(0.272 ns) = 1.656 ns; Loc. = LCCOMB_X22_Y11_N28; Fanout = 37; COMB Node = 'CONTROLE_ULA:ControleUla|saida[2]~0'
+        Info: 4: + IC(0.279 ns) + CELL(0.346 ns) = 2.281 ns; Loc. = LCCOMB_X22_Y11_N22; Fanout = 5; COMB Node = 'Ula32:ALU_componente|Mux62~0'
+        Info: 5: + IC(0.239 ns) + CELL(0.225 ns) = 2.745 ns; Loc. = LCCOMB_X22_Y11_N2; Fanout = 2; COMB Node = 'Ula32:ALU_componente|carry_temp[2]~3'
+        Info: 6: + IC(0.617 ns) + CELL(0.228 ns) = 3.590 ns; Loc. = LCCOMB_X19_Y11_N24; Fanout = 2; COMB Node = 'Ula32:ALU_componente|carry_temp[4]~6'
+        Info: 7: + IC(0.544 ns) + CELL(0.053 ns) = 4.187 ns; Loc. = LCCOMB_X21_Y11_N20; Fanout = 3; COMB Node = 'Ula32:ALU_componente|carry_temp[7]~9'
+        Info: 8: + IC(0.218 ns) + CELL(0.053 ns) = 4.458 ns; Loc. = LCCOMB_X21_Y11_N16; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[9]~10'
+        Info: 9: + IC(0.602 ns) + CELL(0.053 ns) = 5.113 ns; Loc. = LCCOMB_X22_Y9_N0; Fanout = 1; COMB Node = 'Ula32:ALU_componente|carry_temp[11]~11'
+        Info: 10: + IC(0.200 ns) + CELL(0.053 ns) = 5.366 ns; Loc. = LCCOMB_X22_Y9_N4; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[13]~12'
+        Info: 11: + IC(0.218 ns) + CELL(0.053 ns) = 5.637 ns; Loc. = LCCOMB_X22_Y9_N10; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[15]~13'
+        Info: 12: + IC(0.209 ns) + CELL(0.053 ns) = 5.899 ns; Loc. = LCCOMB_X22_Y9_N30; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[17]~14'
+        Info: 13: + IC(0.219 ns) + CELL(0.053 ns) = 6.171 ns; Loc. = LCCOMB_X22_Y9_N16; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[19]~15'
+        Info: 14: + IC(0.211 ns) + CELL(0.053 ns) = 6.435 ns; Loc. = LCCOMB_X22_Y9_N20; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[21]~16'
+        Info: 15: + IC(0.217 ns) + CELL(0.053 ns) = 6.705 ns; Loc. = LCCOMB_X22_Y9_N26; Fanout = 4; COMB Node = 'Ula32:ALU_componente|carry_temp[23]~17'
+        Info: 16: + IC(0.628 ns) + CELL(0.053 ns) = 7.386 ns; Loc. = LCCOMB_X22_Y12_N14; Fanout = 7; COMB Node = 'Ula32:ALU_componente|carry_temp[25]~18'
+        Info: 17: + IC(0.340 ns) + CELL(0.053 ns) = 7.779 ns; Loc. = LCCOMB_X21_Y12_N0; Fanout = 5; COMB Node = 'Ula32:ALU_componente|Mux4~1'
+        Info: 18: + IC(2.886 ns) + CELL(2.144 ns) = 12.809 ns; Loc. = PIN_H23; Fanout = 0; PIN Node = 'Alu[27]'
+        Info: Total cell delay = 3.851 ns ( 30.06 % )
+        Info: Total interconnect delay = 8.958 ns ( 69.94 % )
+Info: Quartus II Classic Timing Analyzer was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 194 megabytes
+    Info: Processing ended: Thu Oct 27 13:59:03 2016
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+

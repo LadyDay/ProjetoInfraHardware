@@ -86,7 +86,7 @@ wire [31:0] DeslocPCOut;
 wire InCause;
 wire [31:0] OutInterruption;
 wire [31:0] RDesloc_saida;
-wire [31:0] DeslocaN;
+wire [31:0] DeslocaN
 
 /*----------------- ESPECIAIS ---------------*/
 wire[4:0]shamt;
