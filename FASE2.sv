@@ -4,12 +4,11 @@ module FASE2(
 	
 	output [4:0] INST_25_21,
 	output [4:0] INST_20_16,
+	output [4:0] RD,
 	output [15:0] INST_15_0,
 	
 	output [1:0] OrigPC,
 	output [5:0] FUNCT,
-	output [32:0] IR,
-	output [4:0] RD,
 	
 	
 	/*DE ACORDO COM A ESPECIFICACAO*/
@@ -24,7 +23,6 @@ module FASE2(
 	output [31:0] PC,			//Saida do PC
 	output [31:0] EPC,
 	output [5:0] OPCODE,
-	output [31:0] Cause,
 	output [5:0] Estado
 	
 
@@ -55,7 +53,9 @@ wire [1:0] MemparaReg;
 wire IntCause;
 wire EPCWrite;
 wire CauseWrite;
-wire IntCause;
+wire OutExtensaoBlock;
+wire [31:0] Cause;
+wire [31:0] IR;
 
 
 
@@ -151,16 +151,6 @@ MUX_DOIS_IN Mux4 (
 
 );
 
-//---RegCause--//
-MUX_DOIS_IN Mux4 (
-
-	.prm_entrada(1'b0),
-	.seg_entrada(1'b1),
-	.controle(IntCause),
-	.saida(InCause)
-	
-);
-
 //---MemToReg---//
 MUX_QUATRO_IN Mux5(
 
@@ -184,7 +174,15 @@ MUX_TRES_IN Mux6(
 
 );
 
+//---RegCause--//
+MUX_DOIS_IN Mux7 (
 
+	.prm_entrada(1'b0),
+	.seg_entrada(1'b1),
+	.controle(IntCause),
+	.saida(InCause)
+	
+);
 
 /*******************************************************/
 /*************R E G I S T R A D O R E S*****************/
@@ -213,7 +211,7 @@ Registrador EPC_reg(
 );
 
 //   Cause   //
-Registrador Cause(
+Registrador Cause_Reg(
 
 	.Clk(clock),		
 	.Reset(reset),	

@@ -11,13 +11,16 @@ module Unidade_Controle(
 	output logic RegDst,
 	output logic EscreveReg,
 	output logic [1:0]MemparaReg,
-	output logic IouD,
+	output logic [1:0] IouD,
 	output logic EscreveIR,
 	output logic EscreveMDR,
 	output logic EscreveAluOut,
-	output logic OrigAALU,
+	output logic [1:0] OrigAALU,
 	output logic [1:0] OrigBALU,
 	output logic [2:0] OpAlu,
+	output logic IntCause,
+	output logic CauseWrite,
+	output logic EPCWrite,
 	
 	
 	output [5:0]State //( precisamos ter visão do estado)
@@ -43,8 +46,14 @@ typedef enum logic [5:0]{
 	BNE,		//13
 	LUI,		//14
 	JUMP,		//15
+	JR,
+	RTE,
 	LOAD_ESPERA1, //16
-	LOAD_ESPERA2 //17
+	LOAD_ESPERA2, //17
+	INEXISTENTE,
+	OVERFLOW,
+	INTERRUPCAO_ESPERA,
+	INTERRUPCAO
 }st;
 
 st ESTADO;
@@ -81,19 +90,19 @@ begin
 						case(funct)
 							6'hd: ESTADO = BREAK;
 							6'h0: ESTADO = NOP;
-							6'20: ESTADO = CLASSE_R;	//ADD
-							6'21: ESTADO = CLASSE_R;	//ADDU
-							6'22: ESTADO = CLASSE_R;	//SUB
-							6'23: ESTADO = CLASSE_R;	//SUBU
-							6'24: ESTADO = CLASSE_R;	//AND
-							6'26: ESTADO = CLASSE_R;	//XOR
-							6'8: ESTADO = JR;
+							6'h20: ESTADO = CLASSE_R;	//ADD
+							6'h21: ESTADO = CLASSE_R;	//ADDU
+							6'h22: ESTADO = CLASSE_R;	//SUB
+							6'h23: ESTADO = CLASSE_R;	//SUBU
+							6'h24: ESTADO = CLASSE_R;	//AND
+							6'h26: ESTADO = CLASSE_R;	//XOR
+							6'h8: ESTADO = JR;
 							default: ESTADO = INEXISTENTE;
 						endcase
 					end
-					6'10:
+					6'h10:
 					begin
-						if(funct == 6'10) ESTADO = RTE;
+						if(funct == 6'h10) ESTADO = RTE;
 						else ESTADO = INEXISTENTE;
 					end
 					6'h2: ESTADO = JUMP;
@@ -174,7 +183,37 @@ begin
 				ESTADO = MEM_READ;
 			end
 			
+			JR: 
+			begin
+				ESTADO = MEM_READ;
+			end
+			
+			RTE: 
+			begin
+				ESTADO = MEM_READ;
+			end
+			
 			NOP: 
+			begin
+				ESTADO = MEM_READ;
+			end
+			
+			INEXISTENTE: 
+			begin
+				ESTADO = INTERRUPCAO_ESPERA;
+			end
+			
+			OVERFLOW: 
+			begin
+				ESTADO = INTERRUPCAO_ESPERA;
+			end
+			
+			INTERRUPCAO_ESPERA: 
+			begin
+				ESTADO = INTERRUPCAO;
+			end
+			
+			INTERRUPCAO: 
 			begin
 				ESTADO = MEM_READ;
 			end
@@ -194,13 +233,16 @@ begin
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;
-				EscreveMDR = 0;			
+				EscreveMDR = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;		
 			
 				/*Variaveis Utilizada*/
-				IouD = 2'00;
+				IouD = 2'b00;
 				EscreveMem = 0;	//Quando for olhar a maquina de estado, modificar
 				EscrevePC = 1;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b01;
 				OpAlu = 2'b00;
 				OrigPC = 2'b00;
@@ -219,11 +261,14 @@ begin
 				IouD = 2'b00;
 				EscreveMem = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				EscreveAluOut = 0;
 				OrigPC = 2'b00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 			end
 			
@@ -240,10 +285,13 @@ begin
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
 				OrigPC = 2'b00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 	
 				/*Variaveis Utilizada*/
 				EscreveIR = 1;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b11;
 				OpAlu = 2'b00;
 				EscreveAluOut = 1;		
@@ -262,11 +310,14 @@ begin
 				IouD = 2'b00;
 				EscreveMem = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				EscreveAluOut = 0;
 				OrigPC = 2'b00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 			end
 			
@@ -284,9 +335,12 @@ begin
 				EscrevePCCondNE = 0;
 				OrigPC = 00;
 				EscreveIR = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 	
 				/*Variaveis Utilizada*/
-				OrigAALU = 1;
+				OrigAALU = 2'b01;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b10;
 				EscreveAluOut = 1;
@@ -303,9 +357,12 @@ begin
 				EscreveMDR = 0;
 				OrigPC = 00;
 				EscreveIR = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b10;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 	
 				/*Variaveis Utilizada*/
 				MemparaReg = 2'b00;
@@ -328,10 +385,13 @@ begin
 				IouD = 2'b00;
 				EscreveMem = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
-				OrigPC = 00;		
+				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;		
 			end
 			
 			NOP:
@@ -348,10 +408,13 @@ begin
 				IouD = 2'b00;
 				EscreveMem = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
-				OrigPC = 00;		
+				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;	
 			end
 			
 			REF_MEM:
@@ -367,9 +430,12 @@ begin
 				EscreveMem = 0;
 				EscrevePC = 0;
 				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/
-				OrigAALU = 1;
+				OrigAALU = 2'b01;
 				OrigBALU = 2'b10;
 				IouD = 2'b01;
 				OpAlu = 2'b00;
@@ -387,10 +453,13 @@ begin
 				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/		
 				IouD = 2'b01;
@@ -409,10 +478,13 @@ begin
 				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/		
 				IouD = 2'b01;
@@ -431,10 +503,13 @@ begin
 				EscrevePCCondNE = 0;
 				EscreveAluOut = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/		
 				IouD = 2'b01;
@@ -454,10 +529,13 @@ begin
 				EscreveMDR = 0;
 				EscreveAluOut = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/		
 				IouD = 2'b01;
@@ -475,10 +553,13 @@ begin
 				IouD = 2'b00;
 				EscreveMem = 0;
 				EscrevePC = 0;
-				OrigAALU = 0;
+				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				OrigPC = 00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/
 				MemparaReg = 2'b01;
@@ -500,9 +581,12 @@ begin
 				EscreveMem = 0;
 				EscrevePC = 0;
 				EscreveAluOut = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/
-				OrigAALU = 1;
+				OrigAALU = 2'b01;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b01;
 				EscrevePCCondEQ = 1;
@@ -522,9 +606,12 @@ begin
 				EscreveMem = 0;
 				EscrevePC = 0;
 				EscreveAluOut = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/
-				OrigAALU = 1;
+				OrigAALU = 2'b01;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b01;
 				EscrevePCCondNE = 1;
@@ -536,7 +623,7 @@ begin
 				/*Variaveis NAO Modificadas*/
 				IouD = 2'b00;
 				EscreveMem = 0;
-				OrigAALU = 1;
+				OrigAALU = 2'b01;
 				EscreveIR = 0;
 				OrigBALU = 2'b0;
 				EscreveMDR = 0;
@@ -546,6 +633,9 @@ begin
 				EscrevePCCondNE = 0;
 				OrigPC = 00;
 				EscreveAluOut = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
 				
 				/*Variaveis Utilizada*/				
 				EscreveReg = 1;
@@ -562,17 +652,68 @@ begin
 				IouD = 2'b00;
 				EscreveMem = 0;
 				EscreveMDR = 0;
-				OrigAALU = 1;
+				OrigAALU = 2'b01;
 				EscreveIR = 0;
 				OrigBALU = 2'b0;
 				OpAlu = 2'b00;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
-				EscreveAluOut = 0;		
+				EscreveAluOut = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;	
 				
 				/*Variaveis Utilizada*/
 				OrigPC = 2'b10;			
 				EscrevePC = 1;
+			end
+			
+			JR:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveIR = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveMDR = 0;			
+				IouD = 2'b00;
+				EscreveMem = 0;
+				EscrevePC = 0;
+				OrigAALU = 2'b00;
+				OrigBALU = 2'b00;
+				OpAlu = 2'b00;
+				EscreveAluOut = 0;
+				OrigPC = 2'b00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
+				
+			end
+			
+			RTE:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveIR = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveMDR = 0;			
+				IouD = 2'b00;
+				EscreveMem = 0;
+				EscrevePC = 0;
+				OrigAALU = 2'b00;
+				OrigBALU = 2'b00;
+				OpAlu = 2'b00;
+				EscreveAluOut = 0;
+				OrigPC = 2'b00;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
+				
 			end
 			
 			INEXISTENTE:
@@ -581,25 +722,98 @@ begin
 				RegDst = 0;
 				EscreveReg = 0;
 				MemparaReg = 2'b00;
-				IouD = 2'b00;
 				EscreveMem = 0;
 				EscreveMDR = 0;
-				
+				EscrevePC = 0;
 				EscreveIR = 0;
-				OrigBALU = 2'b0;
-				
+				OrigPC = 2'b00;
 				EscrevePCCondEQ = 0;
 				EscrevePCCondNE = 0;
-				EscreveAluOut = 0;		
+				EscreveAluOut = 0;
+				OrigBALU = 2'b00;	
 				
 				/*Variaveis Utilizada*/
 				IntCause = 0;
 				CauseWrite = 1;
-				OrigAALU = 0;
-				OpAlu = 2'b11;
-				OrigPC = 2'b00;		
-				EscrevePC = 1;
+				IouD = 2'b10;
+				
+				OrigAALU = 2'b00;
+				OpAlu = 2'b11;	
 				EPCWrite = 1;
+			end
+			
+			OVERFLOW:
+			begin	
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveMem = 0;
+				EscreveMDR = 0;
+				EscrevePC = 0;
+				EscreveIR = 0;
+				OrigPC = 2'b00;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveAluOut = 0;
+				OrigBALU = 2'b00;	
+				
+				/*Variaveis Utilizada*/
+				IntCause = 1;
+				CauseWrite = 1;
+				IouD = 2'b10;
+				
+				OrigAALU = 2'b00;
+				OpAlu = 2'b11;	
+				EPCWrite = 1;
+			end
+			
+			INTERRUPCAO_ESPERA:
+			begin	
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveMem = 0;
+				EscreveMDR = 0;
+				EscrevePC = 0;
+				EscreveIR = 0;
+				OrigPC = 2'b00;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveAluOut = 0;		
+				EPCWrite = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				IouD = 2'b10;
+				OrigAALU = 2'b00;
+				OrigBALU = 2'b00;
+				OpAlu = 2'b00;	
+			end
+			
+			INTERRUPCAO:
+			begin	
+				/*Variaveis NAO Modificadas*/
+				RegDst = 0;
+				EscreveReg = 0;
+				MemparaReg = 2'b00;
+				EscreveMem = 0;
+				EscreveMDR = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveAluOut = 0;		
+				EPCWrite = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				OrigBALU = 2'b00;
+				IouD = 2'b10;
+				
+				/*Variaveis Utilizada*/
+				EscreveIR = 1;
+				OrigAALU = 2'b10;
+				OpAlu = 2'b11;
+				OrigPC = 2'b00;
+				EscrevePC = 1;
 			end
 			
 	endcase
