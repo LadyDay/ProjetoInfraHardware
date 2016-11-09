@@ -1,5 +1,5 @@
 Assembler report for Cinpaticos3etapa
-Thu Oct 27 13:59:00 2016
+Wed Nov 09 16:52:28 2016
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -10,8 +10,8 @@ Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/dml2/Desktop/ProjetoInfraHardware-master/Cinpaticos3etapa.sof
-  6. Assembler Device Options: C:/Users/dml2/Desktop/ProjetoInfraHardware-master/Cinpaticos3etapa.pof
+  5. Assembler Device Options: C:/Users/TEMP.CIN.074/Desktop/ProjetoInfraHardware/Cinpaticos3etapa.sof
+  6. Assembler Device Options: C:/Users/TEMP.CIN.074/Desktop/ProjetoInfraHardware/Cinpaticos3etapa.pof
   7. Assembler Messages
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Thu Oct 27 13:59:00 2016 ;
+; Assembler Status      ; Successful - Wed Nov 09 16:52:28 2016 ;
 ; Revision Name         ; Cinpaticos3etapa                      ;
 ; Top-level Entity Name ; FASE2                                 ;
 ; Family                ; Stratix II                            ;
@@ -79,37 +79,37 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------+----------+---------------+
 
 
-+------------------------------------------------------------------------+
-; Assembler Generated Files                                              ;
-+------------------------------------------------------------------------+
-; File Name                                                              ;
-+------------------------------------------------------------------------+
-; C:/Users/dml2/Desktop/ProjetoInfraHardware-master/Cinpaticos3etapa.sof ;
-; C:/Users/dml2/Desktop/ProjetoInfraHardware-master/Cinpaticos3etapa.pof ;
-+------------------------------------------------------------------------+
++-------------------------------------------------------------------------+
+; Assembler Generated Files                                               ;
++-------------------------------------------------------------------------+
+; File Name                                                               ;
++-------------------------------------------------------------------------+
+; C:/Users/TEMP.CIN.074/Desktop/ProjetoInfraHardware/Cinpaticos3etapa.sof ;
+; C:/Users/TEMP.CIN.074/Desktop/ProjetoInfraHardware/Cinpaticos3etapa.pof ;
++-------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/dml2/Desktop/ProjetoInfraHardware-master/Cinpaticos3etapa.sof ;
-+----------------+---------------------------------------------------------------------------------+
-; Option         ; Setting                                                                         ;
-+----------------+---------------------------------------------------------------------------------+
-; Device         ; EP2S15F672C3                                                                    ;
-; JTAG usercode  ; 0xFFFFFFFF                                                                      ;
-; Checksum       ; 0x004B3524                                                                      ;
-+----------------+---------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/TEMP.CIN.074/Desktop/ProjetoInfraHardware/Cinpaticos3etapa.sof ;
++----------------+----------------------------------------------------------------------------------+
+; Option         ; Setting                                                                          ;
++----------------+----------------------------------------------------------------------------------+
+; Device         ; EP2S15F672C3                                                                     ;
+; JTAG usercode  ; 0xFFFFFFFF                                                                       ;
+; Checksum       ; 0x0055C3FE                                                                       ;
++----------------+----------------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/dml2/Desktop/ProjetoInfraHardware-master/Cinpaticos3etapa.pof ;
-+--------------------+-----------------------------------------------------------------------------+
-; Option             ; Setting                                                                     ;
-+--------------------+-----------------------------------------------------------------------------+
-; Device             ; EPC16                                                                       ;
-; JTAG usercode      ; 0xFFFFFFFF                                                                  ;
-; Checksum           ; 0x1E74D813                                                                  ;
-; Compression Ratio  ; 2                                                                           ;
-+--------------------+-----------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/TEMP.CIN.074/Desktop/ProjetoInfraHardware/Cinpaticos3etapa.pof ;
++--------------------+------------------------------------------------------------------------------+
+; Option             ; Setting                                                                      ;
++--------------------+------------------------------------------------------------------------------+
+; Device             ; EPC16                                                                        ;
+; JTAG usercode      ; 0xFFFFFFFF                                                                   ;
+; Checksum           ; 0x1E5A3063                                                                   ;
+; Compression Ratio  ; 2                                                                            ;
++--------------------+------------------------------------------------------------------------------+
 
 
 +--------------------+
@@ -118,14 +118,14 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II Assembler
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Thu Oct 27 13:58:59 2016
+    Info: Processing started: Wed Nov 09 16:52:26 2016
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off Cinpaticos3etapa -c Cinpaticos3etapa
 Info: Writing out detailed assembly data for power analysis
 Info: Assembler is generating device programming files
 Info: Quartus II Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 240 megabytes
-    Info: Processing ended: Thu Oct 27 13:59:00 2016
-    Info: Elapsed time: 00:00:01
+    Info: Peak virtual memory: 241 megabytes
+    Info: Processing ended: Wed Nov 09 16:52:28 2016
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 
 

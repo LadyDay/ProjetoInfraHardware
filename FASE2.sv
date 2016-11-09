@@ -64,11 +64,11 @@ wire [31:0] IR;
 
 
 
-
+wire ov;
 //Registradores
 wire [31:0] A_in, B_in;
 wire [31:0] A_saida;
-//wire [31:0]B_saida;
+wire [31:0]B_saida;
 
 //Muxes
 wire [31:0] Mux2_saida;
@@ -145,10 +145,11 @@ MUX_QUATRO_IN Mux3(
 );
 
 //---RegDest-//
-MUX_DOIS_IN Mux4 (
+MUX_TRES_IN Mux4 (
 
 	.prm_entrada(INST_20_16), 	//RT
 	.seg_entrada(RD), 	//  RD
+	.ter_entrada(32'd31),
 	.controle(RegDst),
 	.saida(WriteRegister)
 
@@ -160,19 +161,20 @@ MUX_CINCO_IN Mux5(
 	.prm_entrada(AluOut),		// AluOut
 	.seg_entrada(MDR),		// MDR
 	.ter_entrada(LuiOut),
-	.qrt_entrada(OutExtensaoBlock),
-	.qui_entrada(RDesloc_saida),
+	.qrt_entrada(RDesloc_saida),
+	.qui_entrada(MenorUla),
 	.controle(MemparaReg),
 	.saida(WriteDataReg)
 
 );
 
 //---OrigPC-----/
-MUX_TRES_IN Mux6(
+MUX_QUATRO_IN Mux6(
 
 	.prm_entrada(Alu), //saida do ALU
 	.seg_entrada(AluOut), // 
 	.ter_entrada(DeslocPCOut),	//SIGNEXTEND
+	.qrt_entrada(A_saida),
 	.controle(OrigPC),
 	.saida(PC_In)
 
@@ -198,6 +200,15 @@ MUX_DOIS_IN Mux8 (
 	
 );
 
+//----OrigDataMem-----/
+MUX_DOIS_IN Mux9(
+
+	.prm_entrada(B_saida), // bOUT
+	.seg_entrada(SHorSB),
+	.controle(OrigDataMem),
+	.saida(WriteDataMem)
+
+);
 
 /*******************************************************/
 /*************R E G I S T R A D O R E S*****************/
@@ -254,7 +265,7 @@ Registrador B(
 	.Reset(reset),	
 	.Load(1'b1),	//CONSTANTE
 	.Entrada(B_in), 
-	.Saida(WriteDataMem)	
+	.Saida(B_saida)	
 
 );
 
@@ -325,12 +336,31 @@ Memoria MEM(
 
 );
 
+///////////////////////////////////////////////
+////////////////LHU LB E SH SB/////////////////
+///////////////////////////////////////////////
+
+
+LH_LB lhlb_componente(
+	.B(B_saida),
+	.MDR(MDR),
+	.saida(lh_lb_saida),
+	.controle(LHorLB)
+);
+SH_SB shsb_componente (
+	.B(B_saida),
+	.MDR(MDR),
+	.saida(sh_sb_saida),
+	.controle(SHorSB)
+);
+
 
 ///////////////////////////////////////////
 //////////////CONTROLE ULA/////////////////
 ///////////////////////////////////////////
 CONTROLE_ULA ControleUla(
 		.funct(FUNCT),
+		.opcode(OPCODE),
 		.controle(OpAlu),
 		.saida(ControleUlaOut)
 );
@@ -343,11 +373,6 @@ INTERRUPTION Interruption(
 		.saida(OutInterruption)
 );
 
-EXTENSAO_BLOCK ExtensaoBlock(
-		.entrada(IR[7:0]),
-		.saida(OutExtensaoBlock)
-);
-
 ///////////////////////////////////////////
 ///////////////// U L A ///////////////////
 ///////////////////////////////////////////
@@ -357,12 +382,12 @@ ula32 ALU_componente(
 		.B(Mux3_saida),		//origB
 		.Seletor(ControleUlaOut),
 		.S(Alu),
-		.Overflow(),
+		.Overflow(ov),
 		.Negativo(),
 		.z(ZeroAlu),
 		.Igual(),
 		.Maior(),
-		.Menor()
+		.Menor(MenorAlu)
 		
 );
 ///////////////////////////////////////////
@@ -376,7 +401,7 @@ RegDesloc RgDesloca(
 		 	
 			.Shift(ControleUlaOut),
 			.N(DeslocaN[4:0]),
-			.Entrada(WriteDataMem),
+			.Entrada(B_saida),
 			
 			.Saida(RDesloc_saida)
 		
@@ -443,6 +468,8 @@ Unidade_Controle UC(
 	
 	.funct(FUNCT),
 	
+	.overflow(ov),
+	
 	.EscreveMem(EscreveMem),
 	
 	.EscreveAluOut(EscreveAluOut),
@@ -480,6 +507,12 @@ Unidade_Controle UC(
 	.IntCause(IntCause),
 	
 	.MuxDeslc(OrigDeslc),
+	
+	.LHorLB(LHorLB),
+	
+	.SHorSB(SHorSB),
+	
+	.OrigDataMem(OrigDataMem),
 	
 	.State(Estado)
 
