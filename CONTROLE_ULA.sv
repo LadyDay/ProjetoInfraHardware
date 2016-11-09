@@ -31,13 +31,15 @@ begin
 						default: saida = 3'b000;
 					endcase
 				end
+				6'h1: saida = 3'b111;
+				6'h6: saida = 3'b111;
+				6'h7: saida = 3'b111;
 				6'h8: saida = 3'b001;	//addi
 				6'h9: saida = 3'b001;	//addiu
 				6'hc: saida = 3'b011;	//andi
 				6'he: saida = 3'b110;	//sxori
 				
 				6'ha: saida = 3'b111;	//slti
-				
 				default: saida = 3'b000;
 			endcase
 			

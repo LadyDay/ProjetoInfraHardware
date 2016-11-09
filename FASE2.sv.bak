@@ -9,7 +9,8 @@ module FASE2(
 	
 	output [1:0] OrigPC,
 	output [5:0] FUNCT,
-	
+	output [4:0]shamt,
+
 	
 	
 	/*DE ACORDO COM A ESPECIFICACAO*/
@@ -89,7 +90,7 @@ wire [31:0] RDesloc_saida;
 wire [31:0] DeslocaN;
 
 /*----------------- ESPECIAIS ---------------*/
-wire[4:0]shamt;
+//wire[4:0]shamt;
 assign shamt = INST_15_0[10:6];
 
 //wire[4:0]RD;
@@ -174,7 +175,7 @@ MUX_QUATRO_IN Mux6(
 	.prm_entrada(Alu), //saida do ALU
 	.seg_entrada(AluOut), // 
 	.ter_entrada(DeslocPCOut),	//SIGNEXTEND
-	.qrt_entrada(A_saida),
+	.qrt_entrada(EPC),
 	.controle(OrigPC),
 	.saida(PC_In)
 

@@ -37,6 +37,7 @@ begin
 				6'he: saida = 3'b110;	//sxori
 				
 				6'ha: saida = 3'b111;	//slti
+				
 				default: saida = 3'b000;
 			endcase
 			

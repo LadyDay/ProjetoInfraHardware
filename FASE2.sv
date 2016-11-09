@@ -9,7 +9,8 @@ module FASE2(
 	
 	output [1:0] OrigPC,
 	output [5:0] FUNCT,
-	
+	output [4:0]shamt,
+
 	
 	
 	/*DE ACORDO COM A ESPECIFICACAO*/
@@ -42,6 +43,7 @@ wire EscreveMDR;
 wire EscrevePC;
 wire EscrevePCCondEQ;
 wire EscrevePCCondNE;
+wire EscrevePCCond;
 wire RegDst;
 wire EscreveReg;
 wire [1:0]IouD;
@@ -57,6 +59,7 @@ wire CauseWrite;
 wire OutExtensaoBlock;
 wire [31:0] Cause;
 wire [31:0] IR;
+wire OrigRegLet2;
 
 
 
@@ -87,9 +90,12 @@ wire InCause;
 wire [31:0] OutInterruption;
 wire [31:0] RDesloc_saida;
 wire [31:0] DeslocaN;
+wire MaiorAlu;
+wire MenorAlu;
+wire IgualAlu;
 
 /*----------------- ESPECIAIS ---------------*/
-wire[4:0]shamt;
+//wire[4:0]shamt;
 assign shamt = INST_15_0[10:6];
 
 //wire[4:0]RD;
@@ -210,6 +216,16 @@ MUX_DOIS_IN Mux9(
 
 );
 
+//----OrigRegLet2-----/
+MUX_DOIS_IN Mux10(
+
+	.prm_entrada(IR[20:16]), // bOUT
+	.seg_entrada(5'd0),
+	.controle(OrigRegLet2),
+	.saida(OutMux10)
+
+);
+
 /*******************************************************/
 /*************R E G I S T R A D O R E S*****************/
 /*******************************************************/
@@ -316,7 +332,7 @@ Banco_reg BankReg(
 			.Reset(reset),	
 			.RegWrite(EscreveReg),
 			.ReadReg1(INST_25_21),// INSTR 25-21
-			.ReadReg2(INST_20_16),// INSTR 20-16
+			.ReadReg2(OutMux10),// INSTR 20-16
 			.WriteReg(WriteRegister),// REGDEST
 			.WriteData(WriteDataReg),//MEMTORG
 			.ReadData1(A_in),//A rs
@@ -385,8 +401,8 @@ ula32 ALU_componente(
 		.Overflow(ov),
 		.Negativo(),
 		.z(ZeroAlu),
-		.Igual(),
-		.Maior(),
+		.Igual(IgualAlu),
+		.Maior(MaiorAlu),
 		.Menor(MenorAlu)
 		
 );
@@ -442,7 +458,12 @@ CIRCUITO_PC circuito1(
 		.zero(ZeroAlu),
 		.EscrevePCCondEQ(EscrevePCCondEQ),
 		.EscrevePCCondNE(EscrevePCCondNE),
+		.MenorAlu(MenorAlu),
+		.IgualAlu(IgualAlu),
+		.MaiorAlu(MaiorAlu),
 		.EscrevePC(EscrevePC),
+		.opcode(OPCODE),
+		.RT(IR[20:16]),
 		.saida(SinalPC)
 );
 
@@ -481,6 +502,10 @@ Unidade_Controle UC(
 	.EscrevePCCondEQ(EscrevePCCondEQ),
 	
 	.EscrevePCCondNE(EscrevePCCondNE),
+	
+	.EscrevePCCond(EscrevePCCond),
+	
+	.OrigRegLet2(OrigRegLet2),
 	
 	.OrigPC(OrigPC),
 	
