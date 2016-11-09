@@ -9,7 +9,7 @@ module Unidade_Controle(
 	output logic EscrevePCCondEQ,
 	output logic EscrevePCCondNE,
 	output logic [1:0] OrigPC,
-	output logic RegDst,
+	output logic [1:0]RegDst,
 	output logic EscreveReg,
 	output logic [2:0]MemparaReg,
 	output logic [1:0] IouD,
@@ -67,7 +67,8 @@ typedef enum logic [5:0]{
 	LBU, //29
 	LHU,//30
 	SB,//31
-	SH//32
+	SH,//32
+	JAL//33
 	
 }st;
 
@@ -104,7 +105,6 @@ begin
 					begin
 						case(funct)
 							6'hd: ESTADO = BREAK;
-							6'h0: ESTADO = NOP;
 							6'h20: ESTADO = CLASSE_R;	//ADD
 							6'h21: ESTADO = CLASSE_R;	//ADDU
 							6'h22: ESTADO = CLASSE_R;	//SUB
@@ -148,10 +148,15 @@ begin
 					6'h23: ESTADO = REF_MEM; //LW
 					6'h2b: ESTADO = REF_MEM; //SW
 					6'hf: ESTADO = LUI;
+					6'h3: ESTADO = JAL;
 					default: ESTADO = INEXISTENTE;
 				endcase
 			end
 			
+			JAL:
+			begin
+				ESTADO = MEM_READ;
+			end
 			BREAK:
 			begin
 				ESTADO = BREAK;
@@ -342,7 +347,7 @@ begin
 			MEM_READ:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -372,7 +377,7 @@ begin
 			ESPERA:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -401,7 +406,7 @@ begin
 			IR_WRITE:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				IouD = 2'b00;
@@ -430,7 +435,7 @@ begin
 			DECOD:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b00;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -459,7 +464,7 @@ begin
 			CLASSE_I:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				IouD = 2'b00;
@@ -488,7 +493,7 @@ begin
 			CLASSE_R:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				IouD = 2'b00;
@@ -517,7 +522,7 @@ begin
 			CLASSE_Shift:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				IouD = 2'b00;
@@ -547,7 +552,7 @@ begin
 			CLASSE_ShiftV:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				IouD = 2'b00;
@@ -598,7 +603,7 @@ begin
 				
 				/*Variaveis Utilizada*/
 				MemparaReg = 3'b000;
-				RegDst = 1;
+				RegDst = 2'b1;
 				EscreveReg = 1;
 				EscreveAluOut = 0;
 			end
@@ -628,7 +633,7 @@ begin
 				
 				/*Variaveis Utilizada*/
 				EscreveReg = 1;
-				RegDst = 1;
+				RegDst = 2'b1;
 				MemparaReg = 3'b011;
 				
 			end
@@ -658,7 +663,7 @@ begin
 				OpAlu = 2'b10;
 				EscreveAluOut = 0;
 				
-				RegDst = 1;
+				RegDst = 2'b1;
 				EscreveReg = 1;
 				MemparaReg = 3'b100;
 				
@@ -667,7 +672,7 @@ begin
 			BREAK:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -695,7 +700,7 @@ begin
 			NOP:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -723,7 +728,7 @@ begin
 			REF_MEM:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -753,7 +758,7 @@ begin
 			LOAD:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -782,7 +787,7 @@ begin
 			LOAD_ESPERA1:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -811,7 +816,7 @@ begin
 			LOAD_ESPERA2:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -841,7 +846,7 @@ begin
 			STORE:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst =2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -892,7 +897,7 @@ begin
 				
 				/*Variaveis Utilizada*/
 				MemparaReg = 3'b001;
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 1;
 						
 			end
@@ -900,7 +905,7 @@ begin
 			BEQ:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -929,7 +934,7 @@ begin
 			BNE:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -980,14 +985,14 @@ begin
 				
 				/*Variaveis Utilizada*/				
 				EscreveReg = 1;
-				RegDst = 0;
+				RegDst = 2'b0;
 				MemparaReg = 3'b010;		
 			end
 			
 			JUMP:
 			begin	
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				IouD = 2'b00;
@@ -1016,7 +1021,36 @@ begin
 			JR:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
+				EscreveReg = 0;
+				MemparaReg = 3'b000;
+				EscreveIR = 0;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveMDR = 0;			
+				IouD = 2'b00;
+				EscreveMem = 0;
+				OrigAALU = 2'b00;
+				OrigBALU = 2'b00;
+				EscreveAluOut = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
+				MuxDeslc = 0;
+				LHorLB = 0;
+				SHorSB = 0;
+				OrigDataMem = 0;
+				
+				/*Variaveis Utilizadas*/
+				EscrevePC = 1;
+				OpAlu = 2'b11;
+				OrigPC = 2'b00;
+			end
+			
+			RTE:
+			begin
+				/*Variaveis NAO Modificadas*/
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -1038,42 +1072,15 @@ begin
 				OrigDataMem = 0;
 				
 				/*Variaveis Utilizadas*/
-				EscrevePC = 1;
 				OrigPC = 2'b11;
-			end
-			
-			RTE:
-			begin
-				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
-				EscreveReg = 0;
-				MemparaReg = 3'b000;
-				EscreveIR = 0;
-				EscrevePCCondEQ = 0;
-				EscrevePCCondNE = 0;
-				EscreveMDR = 0;			
-				IouD = 2'b00;
-				EscreveMem = 0;
-				EscrevePC = 0;
-				OrigAALU = 2'b00;
-				OrigBALU = 2'b00;
-				OpAlu = 2'b00;
-				EscreveAluOut = 0;
-				OrigPC = 2'b00;
-				IntCause = 0;
-				CauseWrite = 0;
-				EPCWrite = 0;
-				MuxDeslc = 0;
-				LHorLB = 0;
-				SHorSB = 0;
-				OrigDataMem = 0;
+				EscrevePC = 1;
 				
 			end
 			
 			INEXISTENTE:
 			begin	
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveMem = 0;
@@ -1103,7 +1110,7 @@ begin
 			OVERFLOW:
 			begin	
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveMem = 0;
@@ -1133,7 +1140,7 @@ begin
 			INTERRUPCAO_ESPERA:
 			begin	
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveMem = 0;
@@ -1161,7 +1168,7 @@ begin
 			INTERRUPCAO:
 			begin	
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveMem = 0;
@@ -1212,7 +1219,7 @@ begin
 				/*Variaveis Utilizada*/
 				LHorLB = 0;
 				MemparaReg = 3'b100;
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 1;
 			end
 			
@@ -1241,14 +1248,14 @@ begin
 				/*Variaveis Utilizada*/
 				LHorLB = 1;
 				MemparaReg = 3'b100;
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 1;
 			end
 			
 			SB:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -1279,7 +1286,7 @@ begin
 			SH:
 			begin
 				/*Variaveis NAO Modificadas*/
-				RegDst = 0;
+				RegDst = 2'b0;
 				EscreveReg = 0;
 				MemparaReg = 3'b000;
 				EscreveIR = 0;
@@ -1305,6 +1312,35 @@ begin
 				EscreveMem = 1;	
 				SHorSB = 1;
 					
+			end
+			
+			JAL:
+			begin
+				/*Variaveis NAO Modificadas*/
+				IouD = 2'b00;
+				EscreveMem = 0;
+				EscreveMDR = 0;
+				OrigAALU = 2'b01;
+				EscreveIR = 0;
+				OrigBALU = 2'b0;
+				OpAlu = 2'b00;
+				EscrevePCCondEQ = 0;
+				EscrevePCCondNE = 0;
+				EscreveAluOut = 0;
+				IntCause = 0;
+				CauseWrite = 0;
+				EPCWrite = 0;
+				MuxDeslc = 0;	
+				LHorLB = 0;
+				SHorSB = 0;
+				OrigDataMem = 0;
+				
+				/*Variaveis Utilizada*/
+				OrigPC = 2'b10;			
+				EscrevePC = 1;
+				RegDst = 2'b10;
+				EscreveReg = 1;
+				MemparaReg = 3'b000;
 			end
 			
 	endcase

@@ -46,29 +46,28 @@ typedef enum logic [5:0]{
 	STORE,		//8
 	END_REF_MEM,//9
 	BREAK,		//10
-	NOP,		//11
-	BEQ,		//12
-	BNE,		//13
-	LUI,		//14
-	JUMP,		//15
-	JR,			//16
-	RTE,		//17
-	LOAD_ESPERA1, //18
-	LOAD_ESPERA2, //19
-	INEXISTENTE,  //20
-	CLASSE_Shift, //21
-	WRITE_Shift,  //22
-	CLASSE_ShiftV, //23
-	OVERFLOW,     //24
-	INTERRUPCAO_ESPERA, //25
-	INTERRUPCAO,//26
-	CLASSE_I,//27
-	WRITE_SLT,//28
-	LBU, //29
-	LHU,//30
-	SB,//31
-	SH,//32
-	JAL//33
+	BEQ,		//11
+	BNE,		//12
+	LUI,		//13
+	JUMP,		//14
+	JR,			//15
+	RTE,		//16
+	LOAD_ESPERA1, //17
+	LOAD_ESPERA2, //18
+	INEXISTENTE,  //19
+	CLASSE_Shift, //20
+	WRITE_Shift,  //21
+	CLASSE_ShiftV, //22
+	OVERFLOW,     //23
+	INTERRUPCAO_ESPERA, //24
+	INTERRUPCAO,//25
+	CLASSE_I,//26
+	WRITE_SLT,//27
+	LBU, //28
+	LHU,//29
+	SB,//30
+	SH,//31
+	JAL//32
 	
 }st;
 
@@ -105,7 +104,6 @@ begin
 					begin
 						case(funct)
 							6'hd: ESTADO = BREAK;
-							6'h0: ESTADO = NOP;
 							6'h20: ESTADO = CLASSE_R;	//ADD
 							6'h21: ESTADO = CLASSE_R;	//ADDU
 							6'h22: ESTADO = CLASSE_R;	//SUB
@@ -311,11 +309,6 @@ begin
 			end
 			
 			RTE: 
-			begin
-				ESTADO = MEM_READ;
-			end
-			
-			NOP: 
 			begin
 				ESTADO = MEM_READ;
 			end
@@ -698,34 +691,6 @@ begin
 					
 			end
 			
-			NOP:
-			begin
-				/*Variaveis NAO Modificadas*/
-				RegDst = 2'b0;
-				EscreveReg = 0;
-				MemparaReg = 3'b000;
-				EscreveIR = 0;
-				EscrevePCCondEQ = 0;
-				EscrevePCCondNE = 0;
-				EscreveMDR = 0;
-				EscreveAluOut = 0;			
-				IouD = 2'b00;
-				EscreveMem = 0;
-				EscrevePC = 0;
-				OrigAALU = 2'b00;
-				OrigBALU = 2'b00;
-				OpAlu = 2'b10;
-				OrigPC = 00;
-				IntCause = 0;
-				CauseWrite = 0;
-				EPCWrite = 0;	
-				MuxDeslc = 0;
-				LHorLB = 0;
-				SHorSB = 0;
-				OrigDataMem = 0;
-				
-			end
-			
 			REF_MEM:
 			begin
 				/*Variaveis NAO Modificadas*/
@@ -1033,7 +998,6 @@ begin
 				EscreveMem = 0;
 				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
-				OpAlu = 2'b00;
 				EscreveAluOut = 0;
 				IntCause = 0;
 				CauseWrite = 0;
@@ -1045,7 +1009,8 @@ begin
 				
 				/*Variaveis Utilizadas*/
 				EscrevePC = 1;
-				OrigPC = 2'b11;
+				OpAlu = 2'b11;
+				OrigPC = 2'b00;
 			end
 			
 			RTE:
@@ -1060,12 +1025,10 @@ begin
 				EscreveMDR = 0;			
 				IouD = 2'b00;
 				EscreveMem = 0;
-				EscrevePC = 0;
 				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				EscreveAluOut = 0;
-				OrigPC = 2'b00;
 				IntCause = 0;
 				CauseWrite = 0;
 				EPCWrite = 0;
@@ -1073,6 +1036,10 @@ begin
 				LHorLB = 0;
 				SHorSB = 0;
 				OrigDataMem = 0;
+				
+				/*Variaveis Utilizadas*/
+				OrigPC = 2'b11;
+				EscrevePC = 1;
 				
 			end
 			

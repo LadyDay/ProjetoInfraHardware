@@ -174,7 +174,7 @@ MUX_QUATRO_IN Mux6(
 	.prm_entrada(Alu), //saida do ALU
 	.seg_entrada(AluOut), // 
 	.ter_entrada(DeslocPCOut),	//SIGNEXTEND
-	.qrt_entrada(A_saida),
+	.qrt_entrada(EPC),
 	.controle(OrigPC),
 	.saida(PC_In)
 

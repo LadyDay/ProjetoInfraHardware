@@ -53,7 +53,7 @@ set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
 set_global_assignment -name SIMULATION_MODE FUNCTIONAL
 set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE ETAPA3.vwf
 set_global_assignment -name ADD_DEFAULT_PINS_TO_SIMULATION_OUTPUT_WAVEFORMS OFF
-set_global_assignment -name MIF_FILE instrucoes_three.mif
+set_global_assignment -name MIF_FILE instrucoes.mif
 set_global_assignment -name VECTOR_WAVEFORM_FILE ETAPA1.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE ETAPA2.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE ETAPA3.vwf

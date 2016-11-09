@@ -145,10 +145,11 @@ MUX_QUATRO_IN Mux3(
 );
 
 //---RegDest-//
-MUX_DOIS_IN Mux4 (
+MUX_TRES_IN Mux4 (
 
 	.prm_entrada(INST_20_16), 	//RT
 	.seg_entrada(RD), 	//  RD
+	.ter_entrada(32'd31),
 	.controle(RegDst),
 	.saida(WriteRegister)
 
