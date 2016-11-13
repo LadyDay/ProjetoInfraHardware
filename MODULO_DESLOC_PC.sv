@@ -6,7 +6,7 @@ module MODULO_DESLOC_PC(
 
 always_comb 
 begin
-	saida = {PC[31:28], IR[25:0], 2'b00};
+	saida = {PC[31:28], 2'b00, IR[25:0]};
 end
 
 endmodule: MODULO_DESLOC_PC 
