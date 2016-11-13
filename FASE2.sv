@@ -79,6 +79,7 @@ wire [31:0] PC_In;
 wire SinalPC;
 wire [2:0] ControleUlaOut;
 wire ZeroAlu;
+wire OverflowAlu;
 wire [31:0] DeslocPCOut;
 wire InCause;
 wire [31:0] OutInterruption;
@@ -342,7 +343,7 @@ ula32 ALU_componente(
 		.B(Mux3_saida),		//origB
 		.Seletor(ControleUlaOut),
 		.S(Alu),
-		.Overflow(),
+		.Overflow(OverflowAlu),
 		.Negativo(),
 		.z(ZeroAlu),
 		.Igual(),

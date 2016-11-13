@@ -12,9 +12,11 @@ begin
 		2'b10: 
 		begin
 			case(funct)
-				6'h20: saida = 3'b001; //soma
+				6'h20: saida = 3'b001; //ADD
+				6'h21: saida = 3'b001; //ADDU
 				6'h24: saida = 3'b011; //and
-				6'h22: saida = 3'b010; //subtração
+				6'h22: saida = 3'b010; //SUB
+				6'h22: saida = 3'b010; //SUBU
 				6'h26: saida = 3'b110; //xor
 				default: saida = 3'b000;
 			endcase

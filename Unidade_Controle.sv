@@ -2,6 +2,7 @@ module Unidade_Controle(
 	input clock, reset ,
 	input [5:0] OPcode,
 	input [5:0] funct,
+	input OverflowAlu,
 	
 	output logic EscreveMem,
 	output logic EscrevePC,
@@ -106,6 +107,7 @@ begin
 						else ESTADO = INEXISTENTE;
 					end
 					6'h2: ESTADO = JUMP;
+					6'h3: ESTADO = JAL;
 					6'h4: ESTADO = BEQ;
 					6'h5: ESTADO = BNE;
 					6'h23: ESTADO = REF_MEM; //LW
@@ -127,7 +129,15 @@ begin
 			
 			WRITE_RD:
 			begin
-				ESTADO = MEM_READ;
+				case(funct)
+					6'h21: ESTADO = MEM_READ;	//ADDU
+					6'h23: ESTADO = MEM_READ;	//SUBU
+					default:
+					begin
+						if(OverflowAlu==1)	ESTADO = OVERFLOW;
+						else ESTADO = MEM_READ;
+					end
+				endcase
 			end
 			
 			REF_MEM:
@@ -680,15 +690,17 @@ begin
 				EscreveMDR = 0;			
 				IouD = 2'b00;
 				EscreveMem = 0;
-				EscrevePC = 0;
-				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
-				OpAlu = 2'b00;
 				EscreveAluOut = 0;
-				OrigPC = 2'b00;
 				IntCause = 0;
 				CauseWrite = 0;
 				EPCWrite = 0;
+				
+				/*Variaveis Utilizada*/
+				OrigAALU = 2'b01;
+				OpAlu = 2'b11;
+				OrigPC = 2'b00;
+				EscrevePC = 1;
 				
 			end
 			
@@ -704,16 +716,18 @@ begin
 				EscreveMDR = 0;			
 				IouD = 2'b00;
 				EscreveMem = 0;
-				EscrevePC = 0;
 				OrigAALU = 2'b00;
 				OrigBALU = 2'b00;
 				OpAlu = 2'b00;
 				EscreveAluOut = 0;
-				OrigPC = 2'b00;
 				IntCause = 0;
 				CauseWrite = 0;
 				EPCWrite = 0;
 				
+				/*Variaveis Utilizada*/
+				OrigPC = 2'b11;
+				EscrevePC = 1;
+								
 			end
 			
 			INEXISTENTE:
@@ -808,7 +822,7 @@ begin
 				OrigBALU = 2'b00;
 				IouD = 2'b10;
 				
-				/*Variaveis Utilizada*/
+				/*Variaveis Utilizadas*/
 				EscreveIR = 1;
 				OrigAALU = 2'b10;
 				OpAlu = 2'b11;
